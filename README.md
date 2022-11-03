@@ -28,6 +28,6 @@ We use KDTree to process our data, and find the nearest target frequency in the 
 
 11/07-11/19: implement the audio2vector(), KDTree class 
 
-Fall break: finish KDTree getNeighbor() and RemoveFreq() method
+Fall Break: finish KDTree getNeighbor() and RemoveFreq() method
 
--Deadline: pass the unit test and FINISHED!
+Till Deadline: pass the unit test and FINISHED!
