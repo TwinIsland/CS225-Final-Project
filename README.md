@@ -1,6 +1,6 @@
-## Leading Question 
+# Vōcal☆Shōjo (ᗜˬᗜ)
 
-Extract a specific frequency like vocal from an audio clip 
+Fast and light script to extract a specific frequency like vocal from an audio clip 
 
 ## Dataset Acquisition
 
