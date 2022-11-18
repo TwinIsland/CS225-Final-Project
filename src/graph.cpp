@@ -16,6 +16,7 @@ void Graph_directed::create_helper(vector<inputVertex> input_node, vector<Edge> 
         double weight = e.weight;
         // all three data fetched
         insert_in_order(graph[from_id].neighbors_, pair<string, double>(to_id, weight));
+        graph[from_id].num_of_neighbor++;
     }
 }
 
@@ -76,4 +77,13 @@ vector<pair<string, double>> Graph_directed::get_neighbors(const string& id) con
 
 vector<string> Graph_directed::getAll_airfield() const {
     return nodes;
+}
+
+pair<string, double> Graph_directed::get_ith_closest_neighbor(const string& id,const unsigned i) const{
+    if (i >= graph.at(id).num_of_neighbor) return pair<string, double>("not exist", -1);
+    return graph.at(id).neighbors_[i];
+}
+
+unsigned Graph_directed::get_num_of_neighbors(const string& id) const {
+        return graph.at(id).num_of_neighbor;
 }

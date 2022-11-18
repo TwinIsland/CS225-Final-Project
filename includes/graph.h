@@ -31,6 +31,7 @@ class Graph_directed{
         vector<string> other_data;
         // store the neighbor index and the corresponding weight
         vector<pair<string, double>> neighbors_;
+        unsigned num_of_neighbor = 0;
 
         bool operator==(Vertex& v) {
             return v.name_ == this->name_;
@@ -106,7 +107,20 @@ class Graph_directed{
      * @param int the id of the air port
      * @return vector<string> the vector of string containing the air port name and its neighbor
     */
-    vector<pair<string, double>> get_neighbors(const string&) const;
+    vector<pair<string, double>> get_neighbors(const string& id) const;
+
+    /**
+     * @param id the id of the air port
+     * @param i the ith' closest of the air port
+     * @return vector<string> the vector of string containing the air port name and its neighbor
+    */
+    pair<string, double> get_ith_closest_neighbor(const string& id,const unsigned i) const;
+
+    /**
+     * @param int the id of the air port
+     * @return number of neighbors airfield this airfield have
+    */
+    unsigned get_num_of_neighbors(const string& id) const;
 
     vector<string> getAll_airfield() const;
 };
