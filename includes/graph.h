@@ -18,7 +18,7 @@ struct Edge {
 };
 
 class Graph_directed{
-    private:
+    public:
     ////////////////////////////
     // private struct //
     class Vertex {
