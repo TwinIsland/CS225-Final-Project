@@ -1,3 +1,4 @@
+#include "catch.hpp"
 #include "solution.hpp"
 
 #include "include.hpp"
@@ -52,5 +53,6 @@ int main(){
         }
         cout << endl;
     }
+>>>>>>> refs/remotes/origin/main
     return 0;
 }
