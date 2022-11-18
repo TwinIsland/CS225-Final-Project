@@ -14,10 +14,9 @@ using std::endl;
 
 int main(){
     Graph_directed g("./data/vertex.csv" , "./data/edge.csv");
-    for (string s : g.nodes) {
-        Graph_directed::Vertex v = g.getVertex(s);
-        cout << v.name_ << endl;
-        for (pair<string,double> p : v.neighors_) {
+    for (string s : g.getAll_airfield()) {
+        cout << "name: " << s << endl;
+        for (pair<string,double> p : g.get_neighbors(s)) {
             cout << "neighbor: " << p.first << " weight: " << p.second << " ";
         }
         cout << endl;

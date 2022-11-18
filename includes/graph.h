@@ -13,22 +13,24 @@ using std::unordered_map;
  
 typedef vector<string> inputVertex;
 
-struct Edge {
+
+
+class Graph_directed{
+    private:
+    ////////////////////////////
+    // private struct //
+    struct Edge {
         inputVertex from;
         inputVertex to;
         double weight = 0;
-};
+    };
 
-class Graph_directed{
-    public:
-    ////////////////////////////
-    // private struct //
     class Vertex {
         public:
         string name_ = "-1"; // id of the air port
         vector<string> other_data;
         // store the neighbor index and the corresponding weight
-        vector<pair<string, double>> neighors_;
+        vector<pair<string, double>> neighbors_;
 
         bool operator==(Vertex& v) {
             return v.name_ == this->name_;
@@ -41,14 +43,14 @@ class Graph_directed{
         Vertex operator=(Vertex& v) {
             name_ = v.name_;
             other_data = v.other_data;
-            neighors_ = v.neighors_;
+            neighbors_ = v.neighbors_;
             return *this;
         };
 
         Vertex (const Vertex& v) {
             name_ = v.name_;
             other_data = v.other_data;
-            neighors_ = v.neighors_;
+            neighbors_ = v.neighbors_;
         };
 
         Vertex(){
@@ -102,6 +104,9 @@ class Graph_directed{
     // function //
     /**
      * @param int the id of the air port
+     * @return vector<string> the vector of string containing the air port name and its neighbor
     */
-    Vertex getVertex(string&);
+    vector<pair<string, double>> get_neighbors(string&);
+
+    vector<string> getAll_airfield() const;
 };

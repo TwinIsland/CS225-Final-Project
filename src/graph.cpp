@@ -15,7 +15,7 @@ void Graph_directed::create_helper(vector<inputVertex> input_node, vector<Edge> 
         string to_id = e.to[0];
         double weight = e.weight;
         // all three data fetched
-        insert_in_order(graph[from_id].neighors_, pair<string, double>(to_id, weight));
+        insert_in_order(graph[from_id].neighbors_, pair<string, double>(to_id, weight));
     }
 }
 
@@ -33,6 +33,7 @@ Graph_directed::Graph_directed(const std::string & vertex_file, const std::strin
     for (string s : line_node) {
         inputVertex iv;
         SplitString(s, ',', iv);
+        if (iv[0].empty()) continue; // empty input
         i_node.push_back(iv);
     }
     for (string s : line_edge) {
@@ -68,7 +69,10 @@ void Graph_directed::insert_in_order(vector<pair<string, double>>& toinsert, pai
     );
 }
 
-Graph_directed::Vertex Graph_directed::getVertex(string& id) {
-    return graph[id];
+vector<pair<string, double>> Graph_directed::get_neighbors(string& id) {
+    return graph[id].neighbors_;
 }
 
+vector<string> Graph_directed::getAll_airfield() const {
+    return nodes;
+}
