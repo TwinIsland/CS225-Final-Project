@@ -45,19 +45,23 @@ with open("routes.dat.txt", "r", encoding="utf-8") as f:
 print("fail: ", fail_count)
 print("miss rate: ", str(fail_count / len(airport))[:4])
 
-print("remove duplicate edge")
-routes_unique = []
-routes_visit = []
-for i in routes:
-    flat = i[0] + i[1]
-    if flat in routes_visit:
-        continue
-    else:
-        routes_visit.append(flat)
-        routes_unique.append(i)
+# print("remove duplicate edge")
+# routes_unique = []
+# routes_visit = []
+# for i in routes:
+#     flat = i[0] + i[1]
+#     if flat in routes_visit:
+#         continue
+#     else:
+#         routes_visit.append(flat)
+#         routes_unique.append(i)
 
-with open("edge.json", "w") as f:
-    json.dump(routes_unique, f)
+with open("edge.csv", "w") as f:
+    csv_writer = csv.writer(f, delimiter=',')
+    csv_writer.writerows(routes)
 
-with open("vertex.json", "w") as f:
-    json.dump(airport, f)
+with open("vertex.csv", "w") as f:
+    csv_writer = csv.writer(f, delimiter=',')
+    for i in airport.keys():
+        csv_writer.writerow([i, airport[i][0], airport[i][1], airport[i][2]])
+
