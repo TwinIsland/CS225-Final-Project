@@ -23,10 +23,10 @@ class Graph_directed{
     // private struct //
     class Vertex {
         public:
-        int name_ = -1; // id of the air port
+        string name_ = "-1"; // id of the air port
         vector<string> other_data;
         // store the neighbor index and the corresponding weight
-        vector<pair<int, double>> neighors_;
+        vector<pair<string, double>> neighors_;
 
         private: 
         bool operator==(Vertex& v) {
@@ -54,11 +54,11 @@ class Graph_directed{
     // helper function //
     
     /* funtion used for set neighbor */
-    void insert_in_order(vector<pair<int, double>>&, pair<int, double>);
+    void insert_in_order(vector<pair<string, double>>&, pair<string, double>);
     
     /* function used to support insert in order */
-    bool sortbysec(const pair<int,double> &a,
-              const pair<int,double> &b) {
+    bool sortbysec(const pair<string,double> &a,
+              const pair<string,double> &b) {
         return (a.second < b.second);
     }
 
@@ -82,8 +82,8 @@ class Graph_directed{
     /**
      * @param int the id of the air port
     */
-    Vertex getVertex(int&);
-    set<Vertex>::iterator getVertex_it(int& id) {
+    Vertex getVertex(string&);
+    set<Vertex>::iterator getVertex_it(string& id) {
         Vertex temp;
         temp.name_ = id;
         // have not found better way to do this
