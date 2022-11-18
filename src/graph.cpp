@@ -69,8 +69,9 @@ void Graph_directed::insert_in_order(vector<pair<string, double>>& toinsert, pai
     );
 }
 
-vector<pair<string, double>> Graph_directed::get_neighbors(string& id) {
-    return graph[id].neighbors_;
+vector<pair<string, double>> Graph_directed::get_neighbors(const string& id) const {
+    return graph.at(id).neighbors_;
+     
 }
 
 vector<string> Graph_directed::getAll_airfield() const {

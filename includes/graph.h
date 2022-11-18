@@ -106,7 +106,7 @@ class Graph_directed{
      * @param int the id of the air port
      * @return vector<string> the vector of string containing the air port name and its neighbor
     */
-    vector<pair<string, double>> get_neighbors(string&);
+    vector<pair<string, double>> get_neighbors(const string&) const;
 
     vector<string> getAll_airfield() const;
 };
