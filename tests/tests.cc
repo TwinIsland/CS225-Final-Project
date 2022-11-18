@@ -50,6 +50,13 @@ TEST_CASE("readfile and map construct") {
         i_edge.push_back(edge__);
     }
 
-    Graph_directed(i_node,i_edge);
+    Graph_directed g(i_node,i_edge);
+    for (Graph_directed::Vertex v : g.all_node()) {
+        cout << v.name_ << endl;
+        for (pair<string,double> p : v.neighors_) {
+            cout << p.first << " " << p.second << " ";
+        }
+        cout << endl;
+    }
 
 }
