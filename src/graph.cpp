@@ -6,6 +6,7 @@ void Graph_directed::create_helper(vector<inputVertex> input_node, vector<Edge> 
     for (inputVertex v : input_node) {
         Vertex topush;
         topush.name_ = v[0];
+        topush.other_data = v;
         graph.insert(pair<string, Vertex>(v[0], topush)); //initilize graph
         nodes.push_back(v[0]); // pushed all nodes
     }
