@@ -16,5 +16,8 @@ bin/tests: ./src/solution.cc ./tests/tests.cc obj/catch.o
 obj/catch.o: tests/catch.cc
 	$(CXX) $(CXXFLAGS) $(INCLUDES) -c $^ -o $@
 
+
+	
+
 .DEFAULT_GOAL := exec
 .PHONY: exec tests clean

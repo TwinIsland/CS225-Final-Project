@@ -1,4 +1,3 @@
-#include "catch.hpp"
 #include "solution.hpp"
 
 #include "include.hpp"
@@ -45,7 +44,8 @@ int main(){
     }
 
     Graph_directed g(i_node,i_edge);
-    for (Graph_directed::Vertex v : g.all_node) {
+    for (string s : g.nodes) {
+        Graph_directed::Vertex v = g.getVertex(s);
         cout << v.name_ << endl;
         for (pair<string,double> p : v.neighors_) {
             cout << p.first << " " << p.second << " ";
