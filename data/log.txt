@@ -1,3 +1,4 @@
 fetch:  6073 airports
 fail:  729
-miss rate:  0.12
+miss rate:  0.01968
+unique edge number:  37042
