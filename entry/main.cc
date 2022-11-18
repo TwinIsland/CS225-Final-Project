@@ -53,6 +53,5 @@ int main(){
         }
         cout << endl;
     }
->>>>>>> refs/remotes/origin/main
     return 0;
 }
