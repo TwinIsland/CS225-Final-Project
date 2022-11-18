@@ -12,7 +12,7 @@ using std::pair;
 using std::list;
 using std::cout;
 using std::endl;
-using 
+
 
 
 TEST_CASE("test1") {
@@ -58,5 +58,4 @@ TEST_CASE("readfile and map construct") {
         }
         cout << endl;
     }
-
 }
