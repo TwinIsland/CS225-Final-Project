@@ -25,8 +25,8 @@ class Graph_directed{
         public:
         int name_ = -1; // id of the air port
         vector<string> other_data;
-        // not sure wether vector or list is better @TODO!!!
-        vector<pair<Vertex, double>> neighors_;
+        // store the neighbor index and the corresponding weight
+        vector<pair<int, double>> neighors_;
 
         private: 
         bool operator==(Vertex& v) {
@@ -36,6 +36,13 @@ class Graph_directed{
         bool operator!=(Vertex& v) {
             return v.name_ != this->name_;
         };
+
+        Vertex operator=(Vertex& v) {
+            name_ == v.name_;
+            other_data = v.other_data;
+            neighors_ = v.neighors_;
+        };
+
     };
 
     ///////////////////////////
@@ -47,11 +54,11 @@ class Graph_directed{
     // helper function //
     
     /* funtion used for set neighbor */
-    void insert_in_order(vector<pair<Vertex, double>>&, pair<Vertex, double>);
+    void insert_in_order(vector<pair<int, double>>&, pair<int, double>);
     
     /* function used to support insert in order */
-    bool sortbysec(const pair<Vertex,double> &a,
-              const pair<Vertex,double> &b) {
+    bool sortbysec(const pair<int,double> &a,
+              const pair<int,double> &b) {
         return (a.second < b.second);
     }
 
