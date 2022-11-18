@@ -9,6 +9,7 @@
 #include <list>
 #include <iostream>
 #include <algorithm>
+#include <hash_map>
 
 //template<typename T>
 //typename balabala...
