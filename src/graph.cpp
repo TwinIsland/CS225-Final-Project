@@ -1,8 +1,8 @@
 #include "graph.h"
+#include "utils.h"
 
 
-
-Graph_directed::Graph_directed(vector<inputVertex> input_node, vector<Edge> input_edge) {
+void Graph_directed::create_helper(vector<inputVertex> input_node, vector<Edge> input_edge) {
     for (inputVertex v : input_node) {
         Vertex topush;
         topush.name_ = v[0];
@@ -17,6 +17,43 @@ Graph_directed::Graph_directed(vector<inputVertex> input_node, vector<Edge> inpu
         // all three data fetched
         insert_in_order(graph[from_id].neighors_, pair<string, double>(to_id, weight));
     }
+}
+
+Graph_directed::Graph_directed(const std::string & vertex_file, const std::string & edge_file) {
+    vector<inputVertex> i_node;
+    vector<Edge> i_edge;
+    string n_string = file_to_string(vertex_file);
+    string e_string = file_to_string(edge_file);
+
+    vector<string> line_node;
+    SplitString(n_string, '\n', line_node);
+    vector<string> line_edge;
+    SplitString(e_string, '\n', line_edge);
+
+    for (string s : line_node) {
+        inputVertex iv;
+        SplitString(s, ',', iv);
+        i_node.push_back(iv);
+    }
+    for (string s : line_edge) {
+        inputVertex ivfrom;
+        inputVertex ivto;
+        vector<string> temp;
+        SplitString(s, ',', temp);
+        if (temp.size() <= 2) {
+            // invalid line
+            continue;
+        }
+        ivfrom.push_back(temp[0]);
+        ivto.push_back(temp[1]);
+        double wei = std::stod(temp[2]);
+        Edge edge__;
+        edge__.from = ivfrom;
+        edge__.to = ivto;
+        edge__.weight = wei;
+        i_edge.push_back(edge__);
+    }
+    create_helper(i_node,i_edge);
 }
 
 /**

@@ -7,6 +7,7 @@ using std::vector;
 using std::pair;
 using std::list;
 using std::map;
+using std::unordered_map;
 
 //template<class T>
  
@@ -58,7 +59,7 @@ class Graph_directed{
 
     ///////////////////////////
     // private data //
-    map<string,Vertex> graph;
+    unordered_map<string,Vertex> graph;
     set<Edge> all_edge;
     vector<string> nodes;
 
@@ -69,7 +70,7 @@ class Graph_directed{
     void insert_in_order(vector<pair<string, double>>&, pair<string, double>);
     
     /* function used to support insert in order */
-    bool sortbysec(const pair<string,double> &a,
+    static bool sortbysec(const pair<string,double> &a,
               const pair<string,double> &b) {
         return (a.second < b.second);
     }
@@ -87,7 +88,15 @@ class Graph_directed{
      * @param input_node input of vertex, this mp should be array<string>, Vertex[0] is airfield name
      * @param input_edge input of edge, including weight
     */
-    Graph_directed(vector<inputVertex>, vector<Edge>);
+    void create_helper(vector<inputVertex>, vector<Edge>);
+
+    /**
+     * initilize the whole graph with node and edge as input
+     * 
+     * @param vertex_file input of vertex_file, this should be csv
+     * @param edge_file input of edge_file, should be csv
+    */
+    Graph_directed(const std::string & vertex_file, const std::string & edge_file);
 
     ////////////////////////////
     // function //
