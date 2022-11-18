@@ -78,13 +78,6 @@ class Graph_directed{
         return (a.second < b.second);
     }
 
-    /// @brief start of public function
-
-    public:
-    ////////////////////////////
-    // constructor //
-    Graph_directed();
-
     /**
      * initilize the whole graph with node and edge as input
      * 
@@ -92,6 +85,13 @@ class Graph_directed{
      * @param input_edge input of edge, including weight
     */
     void create_helper(vector<inputVertex>, vector<Edge>);
+
+    /// @brief start of public function
+
+    public:
+    ////////////////////////////
+    // constructor //
+    Graph_directed();
 
     /**
      * initilize the whole graph with node and edge as input
