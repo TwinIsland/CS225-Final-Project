@@ -6,6 +6,7 @@ using std::set;
 using std::vector;
 using std::pair;
 using std::list;
+using std::map;
 
 //template<class T>
  
@@ -14,7 +15,7 @@ typedef vector<string> inputVertex;
 struct Edge {
         inputVertex from;
         inputVertex to;
-        double weight = INT64_MAX;
+        double weight = 0;
 };
 
 class Graph_directed{
@@ -28,7 +29,6 @@ class Graph_directed{
         // store the neighbor index and the corresponding weight
         vector<pair<string, double>> neighors_;
 
-        private: 
         bool operator==(Vertex& v) {
             return v.name_ == this->name_;
         };
@@ -38,17 +38,29 @@ class Graph_directed{
         };
 
         Vertex operator=(Vertex& v) {
-            name_ == v.name_;
+            name_ = v.name_;
+            other_data = v.other_data;
+            neighors_ = v.neighors_;
+            return *this;
+        };
+
+        Vertex (const Vertex& v) {
+            name_ = v.name_;
             other_data = v.other_data;
             neighors_ = v.neighors_;
         };
+
+        Vertex(){
+            
+        }
 
     };
 
     ///////////////////////////
     // private data //
-    set<Vertex> all_node;
+    map<string,Vertex> graph;
     set<Edge> all_edge;
+    vector<string> nodes;
 
     ///////////////////////////
     // helper function //
@@ -83,11 +95,4 @@ class Graph_directed{
      * @param int the id of the air port
     */
     Vertex getVertex(string&);
-    set<Vertex>::iterator getVertex_it(string& id) {
-        Vertex temp;
-        temp.name_ = id;
-        // have not found better way to do this
-        auto it = all_node.find(temp);
-        if (it != all_node.end()) return it;
-    }
 };

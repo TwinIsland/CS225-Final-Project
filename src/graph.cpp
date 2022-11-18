@@ -6,7 +6,8 @@ Graph_directed::Graph_directed(vector<inputVertex> input_node, vector<Edge> inpu
     for (inputVertex v : input_node) {
         Vertex topush;
         topush.name_ = v[0];
-        all_node.insert(topush);
+        graph.insert(pair<string, Vertex>(v[0], topush)); //initilize graph
+        nodes.push_back(v[0]); // pushed all nodes
     }
     // all nodes inserted
     for (Edge e : input_edge) {
@@ -14,11 +15,7 @@ Graph_directed::Graph_directed(vector<inputVertex> input_node, vector<Edge> inpu
         string to_id = e.to[0];
         double weight = e.weight;
         // all three data fetched
-        auto it_from = getVertex_it(from_id);
-        Vertex updated = *it_from;
-        all_node.erase(it_from);
-        insert_in_order(updated.neighors_, pair<string,double>(to_id, weight));
-        all_node.insert(updated);
+        insert_in_order(graph[from_id].neighors_, pair<string, double>(to_id, weight));
     }
 }
 
@@ -35,11 +32,6 @@ void Graph_directed::insert_in_order(vector<pair<string, double>>& toinsert, pai
 }
 
 Graph_directed::Vertex Graph_directed::getVertex(string& id) {
-    Vertex temp;
-    temp.name_ = id;
-    // have not found better way to do this
-    auto it = all_node.find(temp);
-    if (it != all_node.end()) return *it;
-    return Vertex();
+    return graph[id];
 }
 
