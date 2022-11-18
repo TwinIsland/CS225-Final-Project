@@ -1,17 +1,29 @@
 #include "graph.h"
 
 
+
+Graph_directed::Graph_directed(vector<inputVertex> input_node, vector<Edge> input_edge) {
+
+}
+
 /**
- * 
- * @param
+ * should inset the element in the ascending order;
 */
-Graph_directed::Graph_directed(vector<Vertex> input_node, vector<Edge> input_edge) {
-    /**
-     * @todo
-    */
+void Graph_directed::insert_in_order(vector<pair<Vertex, double>>& toinsert, pair<Vertex, double> data) {
+    //
+    toinsert.insert(
+        // upper bound and lower bound have no influence
+        std::upper_bound(toinsert.begin(), toinsert.end(), data, sortbysec),
+        data
+    );
 }
 
-
-void Graph_directed::insert_in_order(vector<pair<Node, double>>& toinsert, pair<Node, double> data) {
-    
+Graph_directed::Vertex Graph_directed::getVertex(int& id) {
+    Vertex temp;
+    temp.name_ = id;
+    // have not found better way to do this
+    auto it = all_node.find(temp);
+    if (it != all_node.end()) return *it;
+    return Vertex();
 }
+

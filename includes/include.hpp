@@ -6,7 +6,12 @@
 #include <set>
 #include <stack>
 #include <map>
+#include <list>
 #include <iostream>
+#include <algorithm>
+
+//template<typename T>
+//typename balabala...
 
 
 #endif
