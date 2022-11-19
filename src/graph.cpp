@@ -18,6 +18,7 @@ void Graph_directed::create_helper(vector<inputVertex> input_node, vector<Edge> 
         // all three data fetched
         insert_in_order(graph[from_id].neighbors_, pair<string, double>(to_id, weight));
         graph[from_id].num_of_neighbor++;
+        graph[to_id].num_as_dest++;
     }
 }
 

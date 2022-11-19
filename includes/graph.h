@@ -32,6 +32,7 @@ class Graph_directed{
         // store the neighbor index and the corresponding weight
         vector<pair<string, double>> neighbors_;
         unsigned num_of_neighbor = 0;
+        unsigned num_as_dest = 0;
         double bs_weight = 0;
 
         bool operator==(Vertex& v) {
@@ -48,6 +49,7 @@ class Graph_directed{
             neighbors_ = v.neighbors_;
             num_of_neighbor = v.num_of_neighbor;
             bs_weight = v.bs_weight;
+            num_as_dest = v.num_as_dest;
             return *this;
         };
 
@@ -57,6 +59,7 @@ class Graph_directed{
             neighbors_ = v.neighbors_;
             num_of_neighbor = v.num_of_neighbor;
             bs_weight = v.bs_weight;
+            num_as_dest = v.num_as_dest;
         };
 
         Vertex(){}
@@ -141,6 +144,10 @@ class Graph_directed{
     */
     double get_bs(string& id) {
         return graph[id].bs_weight;
+    }
+
+    unsigned get_num_as_dest(string& id) {
+        return graph[id].num_as_dest;
     }
 
     vector<string> getAll_airfield() const;
