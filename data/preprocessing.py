@@ -18,22 +18,36 @@ def calc_dist(start_coord: tuple, dest_coord: tuple) -> float:
     return geopy.distance.geodesic(start_coord, dest_coord).km
 
 
-def calc_weight(distance: float, distance_max: float, airline: int, airline_max: int) -> float:
+def calc_weight(distance: float, distance_max: float, airline: int) -> float:
     """
 
     :param distance:        distance of the edge
     :param airline:         number of airline
     :param distance_max:    maximum distance
-    :param airline_max:     maximum airline
     :return:                weight of the edge range from [0, 1]
     """
+
+    """
+    General Statistic Data
+    -------------------------------------------
+    std of distance info:    2020.1571858791772
+    mean of distance info:   1851.8100171736605
+    median of distance info: 1195.8845359502072
+    max of distance info:    13804.402294725593
+    
+    std of airline:          1.2853277067594049
+    mean of airline:         1.8069758652340586
+    median of airline:       1.0
+    max of airline:          20.0
+    """
+
     # weight for each parameter
     distance_weight = 0.5
     airline_weight = 1 - distance_weight
 
     # get the fixed weight
     dest_fixed = distance / distance_max                        # TODO: use logarithm formula to get fixed dest
-    airline_fixed = (airline_max - airline) / airline_max
+    airline_fixed = 1 / airline
 
     return airline_fixed * airline_weight + dest_fixed * distance_weight
 
@@ -77,11 +91,10 @@ c = Counter(route_flat)
 
 dist_inf = routes_[:, 2].astype(float)
 dist_max = float(np.max(dist_inf))
-airline_max = int(max(c.values()))
 
 for i in range(len(routes)):
     flat_name = routes[i][0] + routes[i][1]
-    weight = calc_weight(float(routes[i][2]), dist_max, c[flat_name], airline_max)
+    weight = calc_weight(float(routes[i][2]), dist_max, c[flat_name])
     routes[i][2] = weight
 
 # remove duplicate edge
