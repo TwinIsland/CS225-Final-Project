@@ -59,9 +59,7 @@ class Graph_directed{
             bs_weight = v.bs_weight;
         };
 
-        Vertex(){
-            
-        }
+        Vertex(){}
 
     };
 
