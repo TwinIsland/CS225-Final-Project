@@ -31,7 +31,8 @@ int main(){
         cout << "0th clothest neighbor " << g.get_ith_closest_neighbor(s, 0).first << endl;
         cout << endl;
     }
-
-    cout << g.get_num_of_neighbors("PEK") << endl;
+    string airport = "CAN";
+    cout << airport << "as departure: " << g.get_num_of_neighbors(airport) << endl;
+    cout << airport << "as dest: " << g.get_num_of_neighbors(airport) << endl;
     return 0;
 }
