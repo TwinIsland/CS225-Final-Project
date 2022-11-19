@@ -32,5 +32,6 @@ int main(){
         cout << endl;
     }
 
+    cout << g.get_num_of_neighbors("PEK") << endl;
     return 0;
 }
