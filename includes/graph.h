@@ -32,6 +32,7 @@ class Graph_directed{
         // store the neighbor index and the corresponding weight
         vector<pair<string, double>> neighbors_;
         unsigned num_of_neighbor = 0;
+        double bs_weight = 0;
 
         bool operator==(Vertex& v) {
             return v.name_ == this->name_;
@@ -45,6 +46,8 @@ class Graph_directed{
             name_ = v.name_;
             other_data = v.other_data;
             neighbors_ = v.neighbors_;
+            num_of_neighbor = v.num_of_neighbor;
+            bs_weight = v.bs_weight;
             return *this;
         };
 
@@ -52,6 +55,8 @@ class Graph_directed{
             name_ = v.name_;
             other_data = v.other_data;
             neighbors_ = v.neighbors_;
+            num_of_neighbor = v.num_of_neighbor;
+            bs_weight = v.bs_weight;
         };
 
         Vertex(){
@@ -104,7 +109,7 @@ class Graph_directed{
     ////////////////////////////
     // function //
     /**
-     * @param int the id of the air port
+     * @param id the id of the air port
      * @return vector<string> the vector of string containing the air port name and its neighbor
     */
     vector<pair<string, double>> get_neighbors(const string& id) const;
@@ -117,10 +122,28 @@ class Graph_directed{
     pair<string, double> get_ith_closest_neighbor(const string& id,const unsigned i) const;
 
     /**
-     * @param int the id of the air port
+     * @param id the id of the air port
      * @return number of neighbors airfield this airfield have
     */
     unsigned get_num_of_neighbors(const string& id) const;
+
+
+    /**
+     * @param id the id of the airport
+     * @param bs the bs of the airport to be set
+    */
+    void set_bs(string& id, double bs) {
+        graph[id].bs_weight = bs;
+    }
+
+
+    /**
+     * @param id the id of the airport
+     * @return bs the bs of the airport toreturn
+    */
+    double get_bs(string& id) {
+        return graph[id].bs_weight;
+    }
 
     vector<string> getAll_airfield() const;
 };
