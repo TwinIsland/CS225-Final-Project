@@ -1,6 +1,6 @@
 fetch:  6073 airports
 fail:  729
-miss rate:  0.01
+miss rate:  0.010891325783607733
 remove duplicate edge
 unique edge number:  37042
 done

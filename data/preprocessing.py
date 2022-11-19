@@ -18,23 +18,24 @@ def calc_dist(start_coord: tuple, dest_coord: tuple) -> float:
     return geopy.distance.geodesic(start_coord, dest_coord).km
 
 
-def calc_weight(distance: float, distance_max: float, airline: int) -> float:
+def calc_weight(distance: float, distance_max: float, airline: int, airline_max: int) -> float:
     """
 
     :param distance:        distance of the edge
     :param airline:         number of airline
     :param distance_max:    maximum distance
+    :param airline_max:     maximum airline
     :return:                weight of the edge range from [0, 1]
     """
-
     # weight for each parameter
     distance_weight = 0.5
     airline_weight = 1 - distance_weight
 
-    # get the dest weight
+    # get the fixed weight
     dest_fixed = distance / distance_max
+    airline_fixed = (airline_max - airline) / airline_max
 
-    return 1 / airline * airline_weight + dest_fixed * distance_weight
+    return airline_fixed * airline_weight + dest_fixed * distance_weight
 
 
 airport = {}  # key: IATA code value: [latitude, longitude, altitude]
@@ -63,7 +64,7 @@ with open("routes.dat.txt", "r", encoding="utf-8") as f:
         routes.append([start_airport, dest_airport, dist])
 
 print("fail: ", fail_count)
-print("miss rate: ", str(fail_count / len(routes))[:4])
+print("miss rate: ", str(fail_count / len(routes)))
 
 # calculate weight and update routes
 routes_ = np.array(routes, dtype=str)
@@ -76,10 +77,11 @@ c = Counter(route_flat)
 
 dist_inf = routes_[:, 2].astype(float)
 dist_max = float(np.max(dist_inf))
+airline_max = int(max(c.values()))
 
 for i in range(len(routes)):
     flat_name = routes[i][0] + routes[i][1]
-    weight = calc_weight(float(routes[i][2]), dist_max, c[flat_name])
+    weight = calc_weight(float(routes[i][2]), dist_max, c[flat_name], airline_max)
     routes[i][2] = weight
 
 # remove duplicate edge
