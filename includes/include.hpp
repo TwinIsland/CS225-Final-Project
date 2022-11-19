@@ -4,6 +4,7 @@
 #include <vector>
 #include <string>
 #include <set>
+#include <queue>
 #include <stack>
 #include <map>
 #include <list>

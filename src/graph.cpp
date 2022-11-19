@@ -2,6 +2,9 @@
 #include "utils.h"
 
 
+/////////////////////////////////
+// constructor //
+/////////////////
 void Graph_directed::create_helper(vector<inputVertex> input_node, vector<Edge> input_edge) {
     for (inputVertex v : input_node) {
         Vertex topush;
@@ -60,8 +63,12 @@ Graph_directed::Graph_directed(const std::string & vertex_file, const std::strin
     create_helper(i_node,i_edge);
 }
 
+
+///////////////////////////////////////
+// function  private //
+
 /**
- * should inset the element in the ascending order;
+ * should insert the element in the ascending order;
 */
 void Graph_directed::insert_in_order(vector<pair<string, double>>& toinsert, pair<string, double> data) {
     //
@@ -72,20 +79,30 @@ void Graph_directed::insert_in_order(vector<pair<string, double>>& toinsert, pai
     );
 }
 
+
+
+///////////////////////////////////////
+// function  public //
+
 vector<pair<string, double>> Graph_directed::get_neighbors(const string& id) const {
     return graph.at(id).neighbors_;
      
 }
 
-vector<string> Graph_directed::getAll_airfield() const {
-    return nodes;
-}
-
-pair<string, double> Graph_directed::get_ith_closest_neighbor(const string& id,const unsigned i) const{
+pair<string, double> Graph_directed::get_ith_closest_neighbor(const string& id,const unsigned i) const {
     if (i >= graph.at(id).num_of_neighbor) return pair<string, double>("not exist", -1);
     return graph.at(id).neighbors_[i];
 }
 
 unsigned Graph_directed::get_num_of_neighbors(const string& id) const {
         return graph.at(id).num_of_neighbor;
+}
+
+vector<string> Graph_directed::getAll_vertex() const {
+    return nodes;
+}
+
+vector<string> Graph_directed::bfs_one_component(const string& id) const {
+    queue<string> qu;
+    
 }
