@@ -32,7 +32,7 @@ def calc_weight(distance: float, distance_max: float, airline: int, airline_max:
     airline_weight = 1 - distance_weight
 
     # get the fixed weight
-    dest_fixed = distance / distance_max
+    dest_fixed = distance / distance_max                        # TODO: use logarithm formula to get fixed dest
     airline_fixed = (airline_max - airline) / airline_max
 
     return airline_fixed * airline_weight + dest_fixed * distance_weight
