@@ -21,6 +21,10 @@ int main(){
         // if(g.get_num_of_neighbors(s) > 10000) {
         //     break;
         // }
+        if (g.get_num_of_neighbors(s) == 0) {
+            cout << endl;
+            continue;
+        }
         for (pair<string,double> p : g.get_neighbors(s)) {
             cout << "neighbor: " << p.first << " weight: " << p.second << " ";
         }
