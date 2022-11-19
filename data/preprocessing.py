@@ -18,12 +18,12 @@ def calc_dist(start_coord: tuple, dest_coord: tuple) -> float:
     return geopy.distance.geodesic(start_coord, dest_coord).km
 
 
-def calc_weight(distance: float, distance_mean: float, airline: int) -> float:
+def calc_weight(distance: float, distance_max: float, airline: int) -> float:
     """
 
     :param distance:        distance of the edge
     :param airline:         number of airline
-    :param distance_mean:   mean of distance
+    :param distance_max:    maximum distance
     :return:                weight of the edge range from [0, 1]
     """
 
@@ -32,9 +32,7 @@ def calc_weight(distance: float, distance_mean: float, airline: int) -> float:
     airline_weight = 1 - distance_weight
 
     # get the dest weight
-    dest_fixed = distance / distance_mean
-    if dest_fixed > 1:
-        dest_fixed = 1
+    dest_fixed = distance / distance_max
 
     return 1 / airline * airline_weight + dest_fixed * distance_weight
 
@@ -65,7 +63,7 @@ with open("routes.dat.txt", "r", encoding="utf-8") as f:
         routes.append([start_airport, dest_airport, dist])
 
 print("fail: ", fail_count)
-print("miss rate: ", str(fail_count / len(airport))[:4])
+print("miss rate: ", str(fail_count / len(routes))[:4])
 
 # calculate weight and update routes
 routes_ = np.array(routes, dtype=str)
@@ -77,12 +75,11 @@ for i in routes_:
 c = Counter(route_flat)
 
 dist_inf = routes_[:, 2].astype(float)
-dist_mean = float(np.mean(dist_inf))
-dist_std = float(np.std(dist_inf))
+dist_max = float(np.max(dist_inf))
 
 for i in range(len(routes)):
     flat_name = routes[i][0] + routes[i][1]
-    weight = calc_weight(float(routes[i][2]), dist_mean, c[flat_name])
+    weight = calc_weight(float(routes[i][2]), dist_max, c[flat_name])
     routes[i][2] = weight
 
 # remove duplicate edge
@@ -113,3 +110,4 @@ with open("vertex.pkl", "wb") as f:
     pickle.dump(airport, f)
 
 print("unique edge number: ", len(routes_unique))
+print("done")
