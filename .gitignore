@@ -4,10 +4,5 @@ Dockerfile
 .DS_Store
 build/
 bin/
-<<<<<<< HEAD
 push.bat
 pull.bat
-=======
-pull.bat
-push.bat
->>>>>>> 2921557a3ddd91b1f63c93866b526eec6de2b9bd
