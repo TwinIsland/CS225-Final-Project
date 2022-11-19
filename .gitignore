@@ -1,8 +1,0 @@
-.devcontainer/
-.vscode/
-Dockerfile
-.DS_Store
-build/
-bin/
-push.bat
-pull.bat
