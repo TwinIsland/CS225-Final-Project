@@ -18,12 +18,12 @@ def calc_dist(start_coord: tuple, dest_coord: tuple) -> float:
     return geopy.distance.geodesic(start_coord, dest_coord).km
 
 
-def calc_weight(distance: float, distance_max: float, airline: int) -> float:
+def calc_weight(distance: float, dist_max: float, airline: int) -> float:
     """
 
     :param distance:        distance of the edge
     :param airline:         number of airline
-    :param distance_max:    maximum distance
+    :param dist_max:        max distance
     :return:                weight of the edge range from [0, 1]
     """
 
@@ -46,7 +46,8 @@ def calc_weight(distance: float, distance_max: float, airline: int) -> float:
     airline_weight = 1 - distance_weight
 
     # get the fixed weight
-    dest_fixed = distance / distance_max                        # TODO: use logarithm formula to get fixed dest
+    dest_fixed = distance / 4500
+    dest_fixed = 0.95 + (dest_fixed / dist_max) * 0.05 if dest_fixed > 0.95 else dest_fixed
     airline_fixed = 1 / airline
 
     return airline_fixed * airline_weight + dest_fixed * distance_weight
