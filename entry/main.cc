@@ -33,6 +33,6 @@ int main(){
     }
     string airport = "CAN";
     cout << airport << "as departure: " << g.get_num_of_neighbors(airport) << endl;
-    cout << airport << "as dest: " << g.get_num_of_neighbors(airport) << endl;
+    cout << airport << "as dest: " << g.get_num_as_dest(airport) << endl;
     return 0;
 }
