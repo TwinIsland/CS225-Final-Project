@@ -157,4 +157,10 @@ class Graph_directed{
      * @return all vertex in component in visiting order
     */
     vector<string> bfs_one_component(const string& id) const;
+
+    /**
+     * @param id the id of the air port
+     * @return all vertex in component in visiting order
+    */
+    vector<vector<string>> bfs_one_whole_graph(const string& id) const;
 };

@@ -95,7 +95,7 @@ pair<string, double> Graph_directed::get_ith_closest_neighbor(const string& id,c
 }
 
 unsigned Graph_directed::get_num_of_neighbors(const string& id) const {
-        return graph.at(id).num_of_neighbor;
+    return graph.at(id).num_of_neighbor;
 }
 
 vector<string> Graph_directed::getAll_vertex() const {
@@ -104,5 +104,79 @@ vector<string> Graph_directed::getAll_vertex() const {
 
 vector<string> Graph_directed::bfs_one_component(const string& id) const {
     queue<string> qu;
-    
+    unordered_map<string,bool> visited; // use map is for bfs whole graph to copy;
+    qu.push(id);
+    vector<string> toreturn;
+    while(!qu.empty()) {
+        // bfs start
+        vector<string> rim;
+        while(!qu.empty()) {
+            rim.push_back(qu.front());
+            qu.pop();
+        }
+
+        // rim fetched
+        for (const string& s : rim) {
+            if (visited.find(s) != visited.end()) continue; // != end means already existed, should continue;
+
+            visited.insert(pair<string,bool>(s,true)); // now map visisted
+            toreturn.push_back(s);
+
+            for (const pair<string, double>& p : get_neighbors(s)) {
+                // now get all neighbors
+                const string& neigh_s = p.first;
+                if (visited.find(neigh_s) == visited.end()) qu.push(neigh_s); // == end means haven't visited, should be added to the queue
+            }
+        }
+        // now bfs completed;
+    }
+    return toreturn;
+}
+
+
+// have problem for it is an directed graph
+vector<vector<string>> Graph_directed::bfs_one_whole_graph(const string& id) const {
+    queue<string> qu;
+    unordered_map<string,bool> visited; // use map is for bfs whole graph to copy;
+    set<string> unvisited;
+    for (string s : nodes) {
+        unvisited.insert(s);
+    }
+    //
+    qu.push(id);
+    vector<vector<string>> toreturn;
+    vector<string> toreturn_one_component;
+    //
+    while(!qu.empty() && !unvisited.empty()) {
+        // bfs start
+        vector<string> rim;
+        while(!qu.empty()) {
+            rim.push_back(qu.front());
+            qu.pop();
+        }
+
+        // rim fetched
+        for (const string& s : rim) {
+            if (visited.find(s) != visited.end()) continue; // != end means already existed, should continue;
+
+            visited.insert(pair<string,bool>(s,true)); // now map visisted
+            unvisited.erase(s);
+            toreturn_one_component.push_back(s);
+
+            for (const pair<string, double>& p : get_neighbors(s)) {
+                // now get all neighbors
+                const string& neigh_s = p.first;
+                if (visited.find(neigh_s) == visited.end()) qu.push(neigh_s); // == end means haven't visited, should be added to the queue
+            }
+        }
+        // now bfs_one component completed;
+
+        if (qu.empty() && !unvisited.empty()) {
+            // now to return insert one component
+            toreturn.push_back(toreturn_one_component);
+            qu.push(*unvisited.begin());
+            toreturn_one_component.clear();
+        }
+    }
+    return toreturn;
 }
