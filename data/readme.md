@@ -38,13 +38,11 @@ For the whole dataset, use [edge.csv](edge.csv) and [vertex.csv](vertex.csv). **
     """
 ```
 
+*airline number:*
 ![airline](pic/airline.png)
 
-<center>airline number</center>
-
+*route distance:*
 ![route](pic/route.png)
-
-<center>route distance</center>
 
 ## Weight formula
 
