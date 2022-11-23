@@ -49,6 +49,8 @@ For the whole dataset, use [edge.csv](edge.csv) and [vertex.csv](vertex.csv). **
 `A`: airline number
 
 `D`: route distance
+
 $$
-\begin{cases} W = \frac12 (\frac{1}{A}) + \frac12(0.95 + (\frac{D}{4500\cdot D_{max}}\cdot 0.05) &  D > 0.95  \\ W = \frac12 (\frac{1}{A}) + \frac12(\frac{D}{4500}) , & D \leq 0.95 \end{cases}
+\begin{cases} W = \frac12 (\frac{1}{A}) + \frac12(0.95 + (\frac{D}{4500\cdot D_{max}}\cdot 0.05) &  D > 0.95  \\ 
+W = \frac12 (\frac{1}{A}) + \frac12(\frac{D}{4500}) , & D \leq 0.95 \end{cases}
 $$
