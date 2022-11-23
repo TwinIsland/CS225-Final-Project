@@ -4,6 +4,22 @@ For the whole dataset, use [edge.csv](edge.csv) and [vertex.csv](vertex.csv). **
 
 
 
+## Data
+
+*Vertex:*
+
+| ITAT | latitude          | longitude         | altitude |
+| ---- | ----------------- | ----------------- | -------- |
+| PEN  | 5.297140121459961 | 100.2770004272461 | 11       |
+
+*Edge:*
+
+| ITAT (start) | ITAT (dest) | Weight            |
+| ------------ | ----------- | ----------------- |
+| AER          | KZN         | 0.667554408910309 |
+
+
+
 ## Statistic
 
 
