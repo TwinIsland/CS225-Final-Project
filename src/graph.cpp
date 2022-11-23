@@ -100,7 +100,7 @@ pair<string, double> Graph_directed::get_ith_closest_neighbor(const string& id,c
 
 unsigned Graph_directed::get_num_of_neighbors(const string& id) const {
     if (graph.find(id) == graph.end()) {
-        return -1;
+        return 0;
     }
     return graph.at(id).num_of_neighbor;
 }

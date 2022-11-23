@@ -157,6 +157,9 @@ class Graph_directed{
     unsigned get_num_of_neighbors(const string& id) const;
 
     unsigned get_num_as_dest(string& id) {
+        if (graph.find(id) == graph.end()) {
+            return 0;
+        }
         return graph[id].num_as_dest;
     }
 
