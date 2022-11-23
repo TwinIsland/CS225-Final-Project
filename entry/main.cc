@@ -13,7 +13,7 @@ using std::cout;
 using std::endl;
 
 int main(){
-    Graph_directed g("./data/vertex.csv" , "./data/edge.csv");
+    Graph_directed g("./data/vertex_sm.csv" , "./data/edge_sm.csv");
     // for (string s : g.getAll_airfield()) {
     //     cout << "name: " << s << endl;
         
@@ -34,5 +34,20 @@ int main(){
     string airport = "ORD";
     cout << airport << " as departure: " << g.get_num_of_neighbors(airport) << endl;
     cout << airport << " as dest: " << g.get_num_as_dest(airport) << endl;
+
+    string airport1 = "ORD";
+    string airport2 = "CTU";
+
+    shortestPathTable sp_table = g.gen_shortest_path_table();
+    
+    std::vector<string> shortest_path = g.get_shortest_path(sp_table, airport1, airport2);
+    double shortest_path_weight = g.get_shortest_weight(sp_table, airport1, airport2);
+
+    cout << "Shortest path from: " << airport1 << " to " << airport2 << " is: ";
+    for (auto i : shortest_path) {
+        cout << i << " ";
+    }
+    cout << endl;
+    cout << "with weight: " << shortest_path_weight << endl;
     return 0;
 }

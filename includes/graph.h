@@ -13,7 +13,7 @@ using std::queue;
 //template<class T>
  
 typedef vector<string> inputVertex;
-
+typedef std::unordered_map<string, std::unordered_map<string, std::pair<std::vector<string>, int>>> shortestPathTable;
 
 
 class Graph_directed{
@@ -110,6 +110,16 @@ class Graph_directed{
     */
     void create_helper(vector<inputVertex>, vector<Edge>);
 
+    /**
+     * helper for gen_shortest_path_table(), fetch shortest path from path_iter matrix
+     * 
+     * @param path_iter path iter matrix
+     * @param v1 start vertex
+     * @param v2 dest vertex
+     * @return shortest path vertex
+    */
+    std::vector<string> fetch_path_from_path_iter(std::unordered_map<string, std::unordered_map<string, string>>& path_iter, string& v1, string& v2) const;
+
     /// @brief start of public function
 
     public:
@@ -163,4 +173,25 @@ class Graph_directed{
      * @return all vertex in component in visiting order
     */
     vector<vector<string>> bfs_one_whole_graph(const string& id) const;
+
+    /**
+     * @return table used to fetch shortest path
+    */
+    shortestPathTable gen_shortest_path_table() const;
+
+    /**
+     * @param sp_table shortest path table
+     * @param id1 the id of the start air port
+     * @param id2 the id of the dest air port
+     * @return shortest path from id1 to id2
+    */
+    std::vector<string> get_shortest_path(shortestPathTable& sp_table, const string& id1, const string& id2) const;
+
+    /**
+     * @param sp_table shortest path table
+     * @param id1 the id of the start air port
+     * @param id2 the id of the dest air port
+     * @return shortest distance from id1 to id2, return -1 if no valid path
+    */
+    double get_shortest_weight(shortestPathTable& sp_table, const string& id1, const string& id2) const;
 };

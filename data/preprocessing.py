@@ -125,5 +125,22 @@ with open("edge.pkl", "wb") as f:
 with open("vertex.pkl", "wb") as f:
     pickle.dump(airport, f)
 
+# generate smaller data for test
+size_sm = 50
+
+routes_sm = routes_unique[:size_sm]
+routes_sm_ = np.array(routes_sm)
+vertex_sm = set(routes_sm_[:, :2].flatten())
+
+with open("edge_sm.csv", "w", newline='') as f:
+    csv_writer = csv.writer(f)
+    csv_writer.writerows(routes_unique[:50])
+
+
+with open("vertex_sm.csv", "w", newline='') as f:
+    csv_writer = csv.writer(f)
+    for i in vertex_sm:
+        csv_writer.writerow([i, airport[i][0], airport[i][1], airport[i][2]])
+
 print("unique edge number: ", len(routes_unique))
 print("done")

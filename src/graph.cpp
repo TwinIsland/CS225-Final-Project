@@ -180,3 +180,79 @@ vector<vector<string>> Graph_directed::bfs_one_whole_graph(const string& id) con
     }
     return toreturn;
 }
+
+shortestPathTable Graph_directed::gen_shortest_path_table() const {
+    auto vertexs = getAll_vertex();
+    double INF = __DBL_MAX__;
+    std::unordered_map<string, std::unordered_map<string, double>> adj;
+    std::unordered_map<string, std::unordered_map<string, double>> path;
+    std::unordered_map<string, std::unordered_map<string, string>> path_iter;
+
+    int c = 0;
+    // initilize all the matrices
+    for (auto vertex : vertexs) {
+        std::cout << c++ << '/' << vertexs.size() << std::endl;
+        for (auto vertex_dest : vertexs) {
+            adj[vertex][vertex_dest] = INF;
+            path[vertex][vertex_dest] = INF;
+            path_iter[vertex][vertex_dest] = "";
+        }
+        auto neighbors = get_neighbors(vertex);
+        for (auto neighbor : neighbors) {
+            adj[vertex][neighbor.first] = neighbor.second;
+            path[vertex][neighbor.first] = neighbor.second;
+            path_iter[vertex][neighbor.first] = neighbor.first;
+        }
+    }
+
+    c = 0;
+    // floyd Warshall update path and path_iter
+    for (auto k : vertexs) {
+        std::cout << "floyd Warshall: " << c++ << '/' << vertexs.size() << std::endl;
+        for (auto i : vertexs) {
+            for (auto j : vertexs) {
+                // no need update if one path is infinite
+                if (path[i][k] == INF || path[k][j] == INF) 
+                    continue;
+                if (path[i][j] > path[i][k] + path[k][j]) {
+                    path[i][j] = path[i][k] + path[k][j];
+                    path_iter[i][j] = path_iter[i][k];
+                }
+            }
+        }
+    }
+
+    c = 0;
+    // make the output
+    std::cout << "start make output" << std::endl;
+    std::unordered_map<string, std::unordered_map<string, std::pair<std::vector<string>, int>>> out;
+    for (auto vertex : vertexs) {
+        std::cout << "make output: " << c++ << '/' << vertexs.size() << std::endl;
+        for (auto vertex_dest : vertexs) {
+            auto shortest_path = fetch_path_from_path_iter(path_iter, vertex, vertex_dest);
+            auto shortest_dist = path[vertex][vertex_dest];
+            out[vertex][vertex_dest] = {shortest_path, shortest_dist};
+        }       
+    }
+    return out;
+}
+
+std::vector<string> Graph_directed::fetch_path_from_path_iter(std::unordered_map<string, std::unordered_map<string, string>>& path_iter, string& v1, string& v2) const {
+    std::vector<string> out;
+    if (path_iter[v1][v2] == "") return {};
+    while (true) {
+        auto curr = path_iter[v1][v2];
+        out.push_back(curr);
+        if (curr == v2) break;
+    }
+    return out;
+}
+
+std::vector<string> Graph_directed::get_shortest_path(shortestPathTable& sp_table, const string& id1, const string& id2) const {
+    return sp_table.at(id1).at(id2).first;
+}
+
+double Graph_directed::get_shortest_weight(shortestPathTable& sp_table, const string& id1, const string& id2) const {
+    auto distance = sp_table.at(id1).at(id2).second;
+    return distance > __DBL_MAX__ ? -1 : distance;
+}
