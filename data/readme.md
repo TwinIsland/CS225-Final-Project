@@ -22,7 +22,21 @@ For the whole dataset, use [edge.csv](edge.csv) and [vertex.csv](vertex.csv). **
 
 ## Statistic
 
-
+```python
+    """
+    General Statistic Data
+    -------------------------------------------
+    std of distance info:    2020.1571858791772
+    mean of distance info:   1851.8100171736605
+    median of distance info: 1195.8845359502072
+    max of distance info:    13804.402294725593
+    
+    std of airline:          1.2853277067594049
+    mean of airline:         1.8069758652340586
+    median of airline:       1.0
+    max of airline:          20.0
+    """
+```
 
 ![airline](pic/airline.png)
 
