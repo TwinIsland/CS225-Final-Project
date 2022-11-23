@@ -31,12 +31,12 @@ int main(){
     //     cout << "0th clothest neighbor " << g.get_ith_closest_neighbor(s, 0).first << endl;
     //     cout << endl;
     // }
-    string airport = "ORD";
+    string airport = "DME";
     cout << airport << " as departure: " << g.get_num_of_neighbors(airport) << endl;
     cout << airport << " as dest: " << g.get_num_as_dest(airport) << endl;
 
-    string airport1 = "ORD";
-    string airport2 = "CTU";
+    string airport1 = "DME";
+    string airport2 = "UUA";
 
     shortestPathTable sp_table = g.gen_shortest_path_table();
     
@@ -44,10 +44,13 @@ int main(){
     double shortest_path_weight = g.get_shortest_weight(sp_table, airport1, airport2);
 
     cout << "Shortest path from: " << airport1 << " to " << airport2 << " is: ";
+    cout << airport1 << " -> ";
     for (auto i : shortest_path) {
-        cout << i << " ";
+        if (i == shortest_path.back())
+            cout << i;
+        else
+            cout << i << " -> ";
     }
-    cout << endl;
-    cout << "with weight: " << shortest_path_weight << endl;
+    cout << " with weight: " << shortest_path_weight << endl;
     return 0;
 }

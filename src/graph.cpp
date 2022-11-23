@@ -195,10 +195,10 @@ shortestPathTable Graph_directed::gen_shortest_path_table() const {
     std::unordered_map<string, std::unordered_map<string, double>> path;
     std::unordered_map<string, std::unordered_map<string, string>> path_iter;
 
-    int c = 0;
+    // int c = 1;
     // initilize all the matrices
     for (auto vertex : vertexs) {
-        std::cout << c++ << '/' << vertexs.size() << std::endl;
+        // std::cout << "initilize: " << c++ << '/' << vertexs.size() << std::endl;
         for (auto vertex_dest : vertexs) {
             adj[vertex][vertex_dest] = INF;
             path[vertex][vertex_dest] = INF;
@@ -212,10 +212,10 @@ shortestPathTable Graph_directed::gen_shortest_path_table() const {
         }
     }
 
-    c = 0;
+    // c = 1;
     // floyd Warshall update path and path_iter
     for (auto k : vertexs) {
-        std::cout << "floyd Warshall: " << c++ << '/' << vertexs.size() << std::endl;
+        // std::cout << "floyd Warshall: " << c++ << '/' << vertexs.size() << std::endl;
         for (auto i : vertexs) {
             for (auto j : vertexs) {
                 // no need update if one path is infinite
@@ -229,16 +229,15 @@ shortestPathTable Graph_directed::gen_shortest_path_table() const {
         }
     }
 
-    c = 0;
+    // c = 1;
     // make the output
-    std::cout << "start make output" << std::endl;
-    std::unordered_map<string, std::unordered_map<string, std::pair<std::vector<string>, int>>> out;
+    shortestPathTable out;
     for (auto vertex : vertexs) {
-        std::cout << "make output: " << c++ << '/' << vertexs.size() << std::endl;
+        // std::cout << "make output: " << c++ << '/' << vertexs.size() << std::endl;
         for (auto vertex_dest : vertexs) {
             auto shortest_path = fetch_path_from_path_iter(path_iter, vertex, vertex_dest);
-            auto shortest_dist = path[vertex][vertex_dest];
-            out[vertex][vertex_dest] = {shortest_path, shortest_dist};
+            auto shortest_weight = path[vertex][vertex_dest];
+            out[vertex][vertex_dest] = {shortest_path, shortest_weight};
         }       
     }
     return out;
@@ -246,11 +245,13 @@ shortestPathTable Graph_directed::gen_shortest_path_table() const {
 
 std::vector<string> Graph_directed::fetch_path_from_path_iter(std::unordered_map<string, std::unordered_map<string, string>>& path_iter, string& v1, string& v2) const {
     std::vector<string> out;
-    if (path_iter[v1][v2] == "") return {};
+    if (path_iter[v1][v2] == "" || v1 == v2) return {};
+    auto curr = v1;
     while (true) {
-        auto curr = path_iter[v1][v2];
+        curr = path_iter[curr][v2];
         out.push_back(curr);
-        if (curr == v2) break;
+        if (curr == v2) 
+            break;
     }
     return out;
 }
@@ -260,6 +261,6 @@ std::vector<string> Graph_directed::get_shortest_path(shortestPathTable& sp_tabl
 }
 
 double Graph_directed::get_shortest_weight(shortestPathTable& sp_table, const string& id1, const string& id2) const {
-    auto distance = sp_table.at(id1).at(id2).second;
-    return distance > __DBL_MAX__ ? -1 : distance;
+    auto weight = sp_table.at(id1).at(id2).second;
+    return weight > __DBL_MAX__ ? -1 : weight;
 }

@@ -13,7 +13,7 @@ using std::queue;
 //template<class T>
  
 typedef vector<string> inputVertex;
-typedef std::unordered_map<string, std::unordered_map<string, std::pair<std::vector<string>, int>>> shortestPathTable;
+typedef std::unordered_map<string, std::unordered_map<string, std::pair<std::vector<string>, double>>> shortestPathTable;
 
 
 class Graph_directed{
