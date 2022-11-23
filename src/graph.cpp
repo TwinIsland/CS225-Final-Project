@@ -85,8 +85,12 @@ void Graph_directed::insert_in_order(vector<pair<string, double>>& toinsert, pai
 // function  public //
 
 vector<pair<string, double>> Graph_directed::get_neighbors(const string& id) const {
+    if (graph.find(id) == graph.end()) {
+        vector<pair<string, double>> toreturn;
+        toreturn.push_back(pair<string, double>("not exist", -1));
+        return toreturn;
+    }
     return graph.at(id).neighbors_;
-     
 }
 
 pair<string, double> Graph_directed::get_ith_closest_neighbor(const string& id,const unsigned i) const {
@@ -95,6 +99,9 @@ pair<string, double> Graph_directed::get_ith_closest_neighbor(const string& id,c
 }
 
 unsigned Graph_directed::get_num_of_neighbors(const string& id) const {
+    if (graph.find(id) == graph.end()) {
+        return -1;
+    }
     return graph.at(id).num_of_neighbor;
 }
 
