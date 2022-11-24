@@ -9,10 +9,10 @@ tests: bin/tests
 	bin/tests
 	rm -f bin/*
 
-bin/exec:  ./src/*.cc ./src/*.cpp ./entry/main.cc
+bin/exec: ./src/*.cpp ./entry/main.cc ./includes/cs225/*.cpp ./includes/lodepng/*.cpp
 	$(CXX) $(CXX_FLAGS) $^ -o $@
 
-bin/tests: ./src/*.cc ./src/*.cpp ./tests/tests.cc obj/catch.o
+bin/tests: ./src/*.cpp ./tests/tests.cc obj/catch.o ./includes/cs225/*.cpp ./includes/lodepng/*.cpp
 	$(CXX) $(CXX_FLAGS) $^ -o $@
 
 obj/catch.o: tests/catch.cc

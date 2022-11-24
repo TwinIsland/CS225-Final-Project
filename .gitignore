@@ -4,5 +4,7 @@ Dockerfile
 .DS_Store
 build/
 bin/
-*.bat
+pull.bat
+push.bat
 .idea
+output.PNG

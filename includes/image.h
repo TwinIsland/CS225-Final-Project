@@ -1,17 +1,13 @@
 #pragma once
 #include "cs225/PNG.h"
+#include "cs225/HSLAPixel.h"
+#include "utils.h"
 
-// (Graph graph)
-// getAllVertex() -> std::vector<std::string>   string = vertex
-// g.get_bc(std::string vertex_id) -> double weight
-// 
+using namespace cs225;
 
-
-
-class Image {
+class Image: public PNG {
     public: 
-        std::pair<double, double> 
-
-    private:
-    
+        Image();
+        Image(unsigned int width, unsigned int height);
+        Image(Image const & other);
 };
