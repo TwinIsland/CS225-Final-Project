@@ -13,7 +13,8 @@ using std::cout;
 using std::endl;
 
 int main(){
-    Graph_directed g("./data/vertex_sm.csv" , "./data/edge_sm.csv");
+    //Graph_directed g("./data/vertex_sm.csv" , "./data/edge_sm.csv");
+    Graph_directed g("./data/vertex.csv" , "./data/edge.csv");
     // for (string s : g.getAll_airfield()) {
     //     cout << "name: " << s << endl;
         
@@ -52,5 +53,11 @@ int main(){
             cout << i << " -> ";
     }
     cout << " with weight: " << shortest_path_weight << endl;
+    
+    g.UpdateBC();
+    for (auto i : g.getAll_vertex()) {
+        cout << i << " has bc weight: " <<g.get_bc(i) << endl;
+    }
+
     return 0;
 }

@@ -93,15 +93,6 @@ class Graph_directed{
         graph[id].bc_weight = bc;
     }
 
-
-    /**
-     * @param id the id of the airport
-     * @return bs the bs of the airport toreturn
-    */
-    double get_bc(string& id) {
-        return graph[id].bc_weight;
-    }
-
     /**
      * initilize the whole graph with node and edge as input
      * 
@@ -156,14 +147,24 @@ class Graph_directed{
     */
     unsigned get_num_of_neighbors(const string& id) const;
 
-    unsigned get_num_as_dest(string& id) {
+    unsigned get_num_as_dest(const string& id) const{
         if (graph.find(id) == graph.end()) {
             return 0;
         }
-        return graph[id].num_as_dest;
+        return graph.at(id).num_as_dest;
     }
 
+
+    // return all vertex
     vector<string> getAll_vertex() const;
+
+    /**
+     * @param id the id of the airport
+     * @return bs the bs of the airport toreturn
+    */
+    double get_bc(string& id) {
+        return graph[id].bc_weight;
+    }
 
     /**
      * @param id the id of the air port
@@ -175,7 +176,7 @@ class Graph_directed{
      * @param id the id of the air port
      * @return all vertex in component in visiting order
     */
-    vector<vector<string>> bfs_one_whole_graph(const string& id) const;
+    vector<vector<string>> bfs_whole_graph(const string& id) const;
 
     /**
      * @return table used to fetch shortest path
@@ -197,4 +198,6 @@ class Graph_directed{
      * @return shortest distance from id1 to id2, return -1 if no valid path
     */
     double get_shortest_weight(shortestPathTable& sp_table, const string& id1, const string& id2) const;
+
+    void UpdateBC();
 };
