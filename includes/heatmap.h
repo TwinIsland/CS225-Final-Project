@@ -16,19 +16,21 @@ class HeatMap {
          * @brief Construct a new Heat Map object
          * 
          * @param picture takes an image in as the base of the map
+         * @param graph takes in a constructed graph
          */
-        HeatMap(const Image &picture);
+        HeatMap(const Image &picture, Graph_directed graph);
+
+        /**
+         * @brief find the max and min centraility of the graph as bounds for future color mapping
+         * 
+         * @param graph takes in constructed graph
+         */
+        void findMinMaxCentrality(Graph_directed graph);
 
         void convertToPixelLocation(std::vector<std::string> vertexs);
 
-        /**
-         * @brief based on the max and min weight of the data, dynamically map the 
-         *  weight of each airport to the color ranges (green to red)
-         * 
-         * @param vertex 
-         * @return HSLAPixel mapping for current inputVertex 
-         */
-        HSLAPixel weightColorMapping(inputVertex vertex);
+        void weightColorConvert(Graph_directed graph);
+
 
         /**
          * @brief render the final heat map to image format
@@ -48,5 +50,9 @@ class HeatMap {
         Image* base_;
         int pic_width_;
         int pic_height_;
+        double min_centrality_;
+        double max_centrality_;
+        std::vector<std::string> all_string_tags_;
+        std::vector<HSLAPixel&> hsla_colors_;
         std::vector<std::pair<unsigned, unsigned>> locations_;
 };
