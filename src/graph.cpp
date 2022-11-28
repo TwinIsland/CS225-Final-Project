@@ -200,8 +200,6 @@ shortestPathTable Graph_directed::gen_shortest_path_table() const {
     for (auto vertex : vertexs) {
         std::cout << "initilize: " << c++ << '/' << vertexs.size() << std::endl;
         auto neighbors = get_neighbors(vertex);
-        if (neighbors.empty()) 
-            continue; // should be clear
         for (auto vertex_dest : vertexs) {
             adj[vertex][vertex_dest] = INF;
             path[vertex][vertex_dest] = INF;
@@ -221,7 +219,7 @@ shortestPathTable Graph_directed::gen_shortest_path_table() const {
         for (auto i : vertexs) {
             for (auto j : vertexs) {
                 // no need update if one path is infinite
-                if (path[i][k] == INF || path[k][j] == INF) 
+                if (path[i][k] == INF) 
                     continue;
                 if (path[i][j] > path[i][k] + path[k][j]) {
                     path[i][j] = path[i][k] + path[k][j];
@@ -250,10 +248,9 @@ vector<string> Graph_directed::fetch_path_from_path_iter(unordered_map<string, u
     if (path_iter[v1][v2] == "" || v1 == v2) return {};
     auto curr = v1;
     while (true) {
-        std::cout << curr << v2 << std::endl; /// curr might be empty
         curr = path_iter[curr][v2];
         out.push_back(curr);
-        if (curr == v2 || curr == "") // ??? 
+        if (curr == v2)
             break;
     }
     return out;
