@@ -199,5 +199,18 @@ class Graph_directed{
     */
     double get_shortest_weight(shortestPathTable& sp_table, const string& id1, const string& id2) const;
 
+
+    /**
+     * @param id the id of the air port
+     * @return all related data in the vertex, v[0] is the same as id; if not found return empty;
+     * 
+    */
+    vector<string> get_vertex_other_data(const string id) const {
+        if (graph.find(id) == graph.end()) {
+            return vector<string>();
+        }
+            return graph.at(id).other_data;
+    }
+
     void UpdateBC();
 };
