@@ -41,5 +41,4 @@ TEST_CASE("# neighbors on non_exist") {
 
     neighbors = graph.get_neighbors("AAA");
     REQUIRE(neighbors.size() == 0);
-
 }

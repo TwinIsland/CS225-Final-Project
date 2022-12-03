@@ -57,6 +57,7 @@ int main(){
     for (auto i : g.getAll_vertex()) {
         cout << i << " has bc weight: " <<g.get_bc(i) << endl;
     }
+    g.dump_bc_to_csv("result.csv");
 
     // testing print canvas image
     

@@ -196,16 +196,32 @@ shortestPathTable Graph_directed::gen_shortest_path_table() const {
     unordered_map<string, unordered_map<string, string>> path_iter;
 
     int c = 1;
-    // initilize all the matrices
+    // isolated note container
+    std::unordered_set<string> ignored_vertex;
+    std::unordered_set<string> cleaned_vertex;
     for (auto vertex : vertexs) {
-        std::cout << "initilize: " << c++ << '/' << vertexs.size() << std::endl;
+        std::cout << "cleaning: " << c++ << '/' << vertexs.size() << std::endl;
+        if (get_num_of_neighbors(vertex) == 0 && get_num_as_dest(vertex) == 0) {
+            ignored_vertex.insert(vertex);
+        }
+        else { 
+            cleaned_vertex.insert(vertex);
+        }
+    }
+
+    c = 1;
+    // initilize all the matrices
+    for (auto vertex : cleaned_vertex) {
+        std::cout << "initilize: " << c++ << '/' << cleaned_vertex.size() << std::endl;
         auto neighbors = get_neighbors(vertex);
-        for (auto vertex_dest : vertexs) {
+        for (auto vertex_dest : cleaned_vertex) {
             adj[vertex][vertex_dest] = INF;
             path[vertex][vertex_dest] = INF;
             path_iter[vertex][vertex_dest] = "";
         }
         for (auto neighbor : neighbors) {
+            if (cleaned_vertex.find(neighbor.first) == cleaned_vertex.end())
+                continue;
             adj[vertex][neighbor.first] = neighbor.second;
             path[vertex][neighbor.first] = neighbor.second;
             path_iter[vertex][neighbor.first] = neighbor.first;
@@ -214,10 +230,14 @@ shortestPathTable Graph_directed::gen_shortest_path_table() const {
 
     c = 1;
     // floyd Warshall update path and path_iter
-    for (auto k : vertexs) {
-        std::cout << "floyd Warshall: " << c++ << '/' << vertexs.size() << std::endl;
-        for (auto i : vertexs) {
-            for (auto j : vertexs) {
+    std::cout << "----------" <<
+                 "\nignored: " << ignored_vertex.size() <<
+                 "\ncleaned: " << cleaned_vertex.size() << 
+                 "\n---------"   << std::endl;
+    for (auto k : cleaned_vertex) {
+        std::cout << "floyd Warshall: " << c++ << '/' << cleaned_vertex.size() << std::endl;
+        for (auto i : cleaned_vertex) {
+            for (auto j : cleaned_vertex) {
                 // no need update if one path is infinite
                 if (path[i][k] == INF) 
                     continue;
@@ -235,6 +255,10 @@ shortestPathTable Graph_directed::gen_shortest_path_table() const {
     for (auto vertex : vertexs) {
         std::cout << "make output: " << c++ << '/' << vertexs.size() << std::endl;
         for (auto vertex_dest : vertexs) {
+            // handle ignored vertex
+            if (ignored_vertex.find(vertex) != ignored_vertex.end()) 
+                out[vertex][vertex_dest] = {std::vector<string>(), INF};
+        
             auto shortest_path = fetch_path_from_path_iter(path_iter, vertex, vertex_dest);
             auto shortest_weight = path[vertex][vertex_dest];
             out[vertex][vertex_dest] = {shortest_path, shortest_weight};
@@ -279,4 +303,23 @@ void Graph_directed::UpdateBC() {
             }
         }
     }
+}
+
+
+void Graph_directed::dump_bc_to_csv(const string file) {
+    std::ofstream myfile;
+    myfile.open (file);
+
+    if(myfile.is_open()) {  
+        for (auto vertex : nodes) {
+            string str; 
+            str += vertex;
+            str += ',';
+            str += std::to_string(get_bc(vertex));
+            myfile << str << std::endl;
+        }
+        myfile.close();
+    } else 
+        throw std::runtime_error("File cannot open: " + file);
+    std::cout << "successfully dump to: " + file << std::endl;
 }
