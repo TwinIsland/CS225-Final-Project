@@ -28,19 +28,26 @@ We will be using this graph to store all the data. Each node inside the graph wi
 ##### Floyd–Warshall algorithm
 
 After exploring a lot of shortest path algorithms on the website, we believe that the Floyd–Warshall algorithm is more efficient and relative easier for us to implement. We will use this algorithm to find shortest paths between 2 nodes, and then update the weight of the edge between these nodes. The rumtime of this algorithm is $O(n^2)$
- 
+
 ##### Betweenness Centrality
 
 The equation we are going to used is: 
 $$g(v)=\sum_{s\neq v\neq t}=\frac{\sigma_{st}(v)}{\sigma_{st}}$$
 
  The $\sigma_{st}(v)$ is the shortest paths that passing through the node v from $Node \: S$ and $Node \:T$.
- 
- 
+
+
 ##### Data Visualization
 
 We will be using the PNG classes from the CS 225 MP to generate the picture output of our graph. The rumtime of this algorithm is $O(n)$
 
+## Run
+
+simply execute the code below and waiting for executing. After the program end processing, it will generate a file `result.csv` in base fold which contain the betweenness centrality for all vertexes:
+
+```bash
+make calc_bc
+```
 
 ## Timeline (DDL date)
 
