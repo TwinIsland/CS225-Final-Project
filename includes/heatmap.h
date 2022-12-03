@@ -27,9 +27,9 @@ class HeatMap {
          */
         void findMinMaxCentrality(Graph_directed graph);
 
-        void convertToPixelLocation(std::vector<std::string> vertexs);
-
         void weightColorConvert(Graph_directed graph);
+
+        void convertToPixelLocation(Graph_directed graph);
 
 
         /**
@@ -53,6 +53,6 @@ class HeatMap {
         double min_centrality_;
         double max_centrality_;
         std::vector<std::string> all_string_tags_;
-        std::vector<HSLAPixel&> hsla_colors_;
-        std::vector<std::pair<unsigned, unsigned>> locations_;
+        std::vector<HSLAPixel> hsla_colors_;
+        std::vector<std::pair<double, double>> locations_;
 };
