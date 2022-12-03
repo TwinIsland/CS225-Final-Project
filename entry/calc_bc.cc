@@ -30,7 +30,7 @@
 using std::string;
 
 int main() {
-    Graph_directed g("./data/vertex_sm.csv" , "./data/edge_sm.csv");
+    Graph_directed g("./data/vertex.csv" , "./data/edge.csv");
 
     g.UpdateBC();
     g.dump_bc_to_csv("result.csv");
