@@ -9,3 +9,5 @@ push.bat
 .idea
 ./entry/main.cc
 output.png
+pull.bat
+push.bat
