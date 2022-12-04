@@ -1,7 +1,7 @@
 #include "graph.h"
 #include "utils.h"
-// #include "image.h"
-// #include "HeatMap.h"
+#include "image.h"
+#include "HeatMap.h"
 
 using std::string;
 using std::set;
@@ -13,7 +13,7 @@ using std::endl;
 
 int main(){
     //Graph_directed g("./data/vertex_sm.csv" , "./data/edge_sm.csv");
-    Graph_directed g("./data/vertex.csv" , "./data/edge.csv");
+    Graph_directed g("./data/vertex_sm.csv" , "./data/edge_sm.csv");
     // for (string s : g.getAll_airfield()) {
     //     cout << "name: " << s << endl;
         
@@ -58,6 +58,12 @@ int main(){
     //     cout << i << " has bc weight: " <<g.get_bc(i) << endl;
     // }
     // g.dump_bc_to_csv("result.csv");
+
+    g.UpdateBC();
+    for (auto i : g.getAll_vertex()) {
+        cout << i << " has bc weight: " <<g.get_bc(i) << endl;
+    }
+    g.dump_bc_to_csv("result.csv");
 
     // testing print canvas image
     

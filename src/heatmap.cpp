@@ -25,7 +25,7 @@ HeatMap::HeatMap (const Image &picture, Graph_directed graph) {
     // find the max and min weight of this graph
     findMinMaxCentrality(graph);
     weightColorConvert(graph);
-    // convertToPixelLocation();
+    convertToPixelLocation(graph);
 }
 
 void HeatMap::findMinMaxCentrality(Graph_directed graph) {
@@ -60,10 +60,25 @@ void HeatMap::weightColorConvert(Graph_directed graph) {
         hsla.l = 0.5;
         hsla_colors_.push_back(hsla);
     }
+    std::cout << hsla_colors_.at(0);
 }
 
-void HeatMap::convertToPixelLocation(std::vector<std::string> vertexs) {
+void HeatMap::convertToPixelLocation(Graph_directed graph) {
+    for (size_t idx = 0; idx < all_string_tags_.size(); idx++) {
+        std::string curr_tag = all_string_tags_.at(idx);
+        std::vector<std::string> csv_row_vect = graph.get_vertex_other_data(curr_tag);
 
+        double raw_longitude = std::stod(csv_row_vect.at(2)); // x coord
+        int pixel_longitude = (raw_longitude * pic_width_) / 360;
+        pixel_longitude += (pic_width_ / 2);
+
+        double raw_latitude = std::stod(csv_row_vect.at(1)); // y coord
+        int pixel_latitude = (raw_latitude * pic_height_) / 180;
+        pixel_latitude += (pic_height_ / 2);
+        
+        std::pair<double, double> pair(pixel_longitude, pixel_latitude);
+        locations_.push_back(pair);
+    }
 }
 
 Image HeatMap::render () const {
@@ -79,6 +94,13 @@ Image HeatMap::render () const {
             result.getPixel(width, height) = base_->getPixel(width, height);
         }
     }
+
+    for (size_t idx = 0; idx < hsla_colors_.size(); idx++) {
+        int x_coord = locations_.at(idx).first;
+        int y_coord = locations_.at(idx).second;
+        result.getPixel(x_coord, y_coord) = hsla_colors_.at(idx);
+    }
+
     return result;
 }
 
