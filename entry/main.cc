@@ -52,20 +52,11 @@ int main(){
     //         cout << i << " -> ";
     // }
     // cout << " with weight: " << shortest_path_weight << endl;
-    
-<<<<<<< HEAD
-    // g.UpdateBC();
-    // for (auto i : g.getAll_vertex()) {
-    //     cout << i << " has bc weight: " <<g.get_bc(i) << endl;
-    // }
-=======
     g.UpdateBC();
     for (auto i : g.getAll_vertex()) {
         cout << i << " has bc weight: " <<g.get_bc(i) << endl;
     }
     g.dump_bc_to_csv("result.csv");
->>>>>>> refs/remotes/origin/main
-
     // testing print canvas image
     
     Image image; image.readFromFile("small_canvas.png");
