@@ -47,24 +47,15 @@ void HeatMap::weightColorConvert(Graph_directed graph) {
     int yellowPivotIdx = (centrality_vect.size() / 3) * 2;
     double yellowPivotCent = centrality_vect.at(yellowPivotIdx);
 
-    // int redPivotIdx = centrality_vect.size() - 1;
-    // double redPivotCent = centrality_vect.at(redPivotIdx);
-
     for (auto& string_tag : all_string_tags_) {
         double curr_centrality = graph.get_bc(string_tag);
         HSLAPixel hsla;
-        // double slope = (numerator / denominator) * x + kGreenHSLA;
         
         if (curr_centrality <= greenPivotCent) { // green
             hsla.h = kGreenHSLA;
         } else if (curr_centrality > greenPivotCent && curr_centrality <= yellowPivotCent) { // yellow
-            double numerator = kYellowHSLA - kGreenHSLA;
-            double denominator = yellowPivotCent - greenPivotCent;
-            hsla.h = (numerator / denominator) * curr_centrality + kGreenHSLA;
+            hsla.h = kYellowHSLA;
         } else { // red
-            // double numerator = kRedHSLA - kYellowHSLA;
-            // double denominator = redPivotCent - yellowPivotCent;
-            // hsla.h = (numerator / denominator) * curr_centrality + kYellowHSLA;
             hsla.h = kRedHSLA;
         }
         hsla.s = 1;
