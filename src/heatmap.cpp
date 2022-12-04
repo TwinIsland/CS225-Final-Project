@@ -23,7 +23,6 @@ HeatMap::HeatMap (const Image &picture, Graph_directed graph) {
     }
 
     // find the max and min weight of this graph
-    graph.UpdateBC();
     findMinMaxCentrality(graph);
     weightColorConvert(graph);
     convertToPixelLocation(graph);
