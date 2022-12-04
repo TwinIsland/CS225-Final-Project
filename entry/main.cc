@@ -64,5 +64,9 @@ int main(){
     image.readFromFile("small_canvas.png");
     HeatMap map(image, g); 
     map.render().writeToFile("output.PNG");
+<<<<<<< HEAD
     // return 0;
+=======
+    return 0;
+>>>>>>> refs/remotes/origin/main
 }
