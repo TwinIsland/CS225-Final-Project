@@ -1,6 +1,6 @@
 # Betweenness Centrality of Global Airports
 
-![](pic/output.PNG)__
+![](doc/sample.png)
 
 ## Leading Question 
 
