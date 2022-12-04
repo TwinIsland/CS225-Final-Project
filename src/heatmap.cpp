@@ -49,8 +49,8 @@ void HeatMap::weightColorConvert(Graph_directed graph) {
 
     for (auto& string_tag : all_string_tags_) {
         double curr_centrality = graph.get_bc(string_tag);
-        HSLAPixel hsla;
         
+        HSLAPixel hsla;
         if (curr_centrality <= greenPivotCent) { // green
             hsla.h = kGreenHSLA;
         } else if (curr_centrality > greenPivotCent && curr_centrality <= yellowPivotCent) { // yellow
@@ -62,19 +62,6 @@ void HeatMap::weightColorConvert(Graph_directed graph) {
         hsla.l = 0.5;
         hsla_colors_.push_back(hsla);
     }
-    std::cout << centrality_vect.size() << std::endl;
-
-    
-    // for (auto& string_tag : all_string_tags_) {
-    //     double curr_centrality = graph.get_bc(string_tag);
-    //     centrality_vect.push_back(curr_centrality);
-    //     HSLAPixel hsla;
-    //     // double slope = (numerator / denominator) * x + kGreenHSLA;
-    //     hsla.h = (numerator / denominator) * curr_centrality + kGreenHSLA;
-    //     hsla.s = 1;
-    //     hsla.l = 0.5;
-    //     hsla_colors_.push_back(hsla);
-    // }
 }
 
 void HeatMap::convertToPixelLocation(Graph_directed graph) {
