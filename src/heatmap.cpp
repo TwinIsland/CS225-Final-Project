@@ -23,6 +23,7 @@ HeatMap::HeatMap (const Image &picture, Graph_directed graph) {
     }
 
     // find the max and min weight of this graph
+    graph.UpdateBC();
     findMinMaxCentrality(graph);
     weightColorConvert(graph);
     convertToPixelLocation(graph);
@@ -31,11 +32,12 @@ HeatMap::HeatMap (const Image &picture, Graph_directed graph) {
 void HeatMap::findMinMaxCentrality(Graph_directed graph) {
     max_centrality_ = std::numeric_limits<double>::lowest();
     min_centrality_ = std::numeric_limits<double>::max();
-
+    
     for (auto& string_tag : all_string_tags_) {
         double curr_centrality = graph.get_bc(string_tag);
         if (max_centrality_ < curr_centrality) {
             max_centrality_ = curr_centrality;
+            
         }
 
         if (min_centrality_ > curr_centrality) {
@@ -60,7 +62,6 @@ void HeatMap::weightColorConvert(Graph_directed graph) {
         hsla.l = 0.5;
         hsla_colors_.push_back(hsla);
     }
-    std::cout << hsla_colors_.at(0);
 }
 
 void HeatMap::convertToPixelLocation(Graph_directed graph) {
