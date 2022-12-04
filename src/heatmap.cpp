@@ -32,12 +32,11 @@ HeatMap::HeatMap (const Image &picture, Graph_directed graph) {
 void HeatMap::findMinMaxCentrality(Graph_directed graph) {
     max_centrality_ = std::numeric_limits<double>::lowest();
     min_centrality_ = std::numeric_limits<double>::max();
-    
+
     for (auto& string_tag : all_string_tags_) {
         double curr_centrality = graph.get_bc(string_tag);
         if (max_centrality_ < curr_centrality) {
             max_centrality_ = curr_centrality;
-            
         }
 
         if (min_centrality_ > curr_centrality) {
@@ -69,13 +68,14 @@ void HeatMap::convertToPixelLocation(Graph_directed graph) {
         std::string curr_tag = all_string_tags_.at(idx);
         std::vector<std::string> csv_row_vect = graph.get_vertex_other_data(curr_tag);
 
+        double radius  = pic_width_ / (2 * M_PI);
         double raw_longitude = std::stod(csv_row_vect.at(2)); // x coord
-        int pixel_longitude = (raw_longitude * pic_width_) / 360;
-        pixel_longitude += (pic_width_ / 2);
+        double raw_radians = raw_longitude / 180 * M_PI;
+        int pixel_longitude = raw_radians * radius + (pic_width_ / 2) + 0.5;
 
         double raw_latitude = std::stod(csv_row_vect.at(1)); // y coord
-        int pixel_latitude = (raw_latitude * pic_height_) / 180;
-        pixel_latitude += (pic_height_ / 2);
+        double tile_height = pic_height_ / 180;
+        int pixel_latitude = std::abs((raw_latitude * tile_height) - (pic_height_ / 2)) + 0.5;
         
         std::pair<double, double> pair(pixel_longitude, pixel_latitude);
         locations_.push_back(pair);

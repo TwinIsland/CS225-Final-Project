@@ -3,6 +3,7 @@
 #include "image.h"
 #include "graph.h"
 #include "utils.h"
+#include <cmath>
 
 
 // (Graph graph)
