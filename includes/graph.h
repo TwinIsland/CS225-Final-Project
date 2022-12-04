@@ -127,6 +127,15 @@ class Graph_directed{
         */
         Graph_directed(const std::string & vertex_file, const std::string & edge_file);
 
+        /**
+         * initilize the whole graph with node and bc as input
+         * 
+         * @param vertex_file input of vertex_file, this should be csv
+         * @param edge_file input of edge_file, should be csv
+         * @param bc_file input of bc_file, should be csv
+        */
+        Graph_directed(const std::string & vertex_file, const std::string & edge_file, const std::string & bc_file);
+
         ////////////////////////////
         // function //
         /**
