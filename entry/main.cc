@@ -13,7 +13,7 @@ using std::endl;
 
 int main(){
     //Graph_directed g("./data/vertex_sm.csv" , "./data/edge_sm.csv");
-    Graph_directed g("./data/vertex_sm.csv" , "./data/edge_sm.csv");
+    Graph_directed g("./data/vertex.csv" , "./data/edge.csv");
     // for (string s : g.getAll_airfield()) {
     //     cout << "name: " << s << endl;
         
@@ -31,7 +31,7 @@ int main(){
     //     cout << "0th clothest neighbor " << g.get_ith_closest_neighbor(s, 0).first << endl;
     //     cout << endl;
     // }
-    // string airport = "DME";
+    // string airport = "CMI";
     // cout << airport << " as departure: " << g.get_num_of_neighbors(airport) << endl;
     // cout << airport << " as dest: " << g.get_num_as_dest(airport) << endl;
 
@@ -53,11 +53,11 @@ int main(){
     // }
     // cout << " with weight: " << shortest_path_weight << endl;
     
-    g.UpdateBC();
-    for (auto i : g.getAll_vertex()) {
-        cout << i << " has bc weight: " <<g.get_bc(i) << endl;
-    }
-    g.dump_bc_to_csv("result.csv");
+    // g.UpdateBC();
+    // for (auto i : g.getAll_vertex()) {
+    //     cout << i << " has bc weight: " <<g.get_bc(i) << endl;
+    // }
+    // g.dump_bc_to_csv("result.csv");
 
     // testing print canvas image
     
