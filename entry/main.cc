@@ -64,5 +64,5 @@ int main(){
     image.readFromFile("small_canvas.png");
     HeatMap map(image, g); 
     map.render().writeToFile("output.PNG");
-    return 0;
+    // return 0;
 }
