@@ -64,6 +64,23 @@ Graph_directed::Graph_directed(const std::string & vertex_file, const std::strin
 }
 
 
+Graph_directed::Graph_directed(const std::string & vertex_file, const std::string & edge_file, const std::string & bc_file) {
+    Graph_directed(vertex_file, edge_file);
+    std::ifstream myfile(bc_file);
+
+    if (myfile.is_open()) {
+        std::string line;
+        while (std::getline(myfile, line)) {
+            auto id = line.substr(0, 3);
+            auto bc = std::stod(line.substr(4));
+            std::cout << id << " " << bc << std::endl;
+            set_bc(id, bc);
+        }
+    } else 
+        throw std::runtime_error("File cannot open: " + bc_file);
+    myfile.close();
+}
+
 ///////////////////////////////////////
 // function  private //
 

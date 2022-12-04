@@ -13,7 +13,8 @@ using std::endl;
 
 int main(){
     //Graph_directed g("./data/vertex_sm.csv" , "./data/edge_sm.csv");
-    Graph_directed g("./data/vertex_sm.csv" , "./data/edge_sm.csv");
+    Graph_directed g("./data/vertex_sm.csv" , "./data/edge_sm.csv", "./bc_whole_data.csv");
+
     // for (string s : g.getAll_airfield()) {
     //     cout << "name: " << s << endl;
         
@@ -52,15 +53,16 @@ int main(){
     //         cout << i << " -> ";
     // }
     // cout << " with weight: " << shortest_path_weight << endl;
-    g.UpdateBC();
+    // g.UpdateBC();
     for (auto i : g.getAll_vertex()) {
         cout << i << " has bc weight: " <<g.get_bc(i) << endl;
     }
-    g.dump_bc_to_csv("result.csv");
+    // g.dump_bc_to_csv("result.csv");
     // testing print canvas image
     
-    Image image; image.readFromFile("small_canvas.png");
-    HeatMap map(image, g); 
+    // Image image; 
+    // image.readFromFile("small_canvas.png");
+    // HeatMap map(image, g); 
     // map.render().writeToFile("output.PNG");
     // return 0;
 }

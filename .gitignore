@@ -7,4 +7,7 @@ bin/
 pull.bat
 push.bat
 .idea
-output.PNG
+./entry/main.cc
+output.png
+pull.bat
+push.bat
