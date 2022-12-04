@@ -49,11 +49,22 @@ simply execute the code below and waiting for executing. After the program end p
 make calc_bc
 ```
 
+after generating the `result.csv` file, you can visualize the bc value on map by running:
+
+```bash
+make
+```
+
 ## Timeline (DDL date)
 
 11/18 finished the data cleaning
+
 11/18 complete 80% of the graph implmentation
+
 11/20 completed BFS of the graph
+
 11/21 complete the Floyd–Warshall algorithm
+
 11/22 merge everything and start the update weight method
+
 11/23 convert the graph to PNG output
