@@ -305,7 +305,6 @@ void Graph_directed::UpdateBC() {
     }
 }
 
-
 void Graph_directed::dump_bc_to_csv(const string file) {
     std::ofstream myfile;
     myfile.open (file);
