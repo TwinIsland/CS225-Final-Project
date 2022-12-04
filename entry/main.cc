@@ -12,7 +12,6 @@ using std::cout;
 using std::endl;
 
 int main(){
-<<<<<<< HEAD
     //Graph_directed g("./data/vertex_sm.csv" , "./data/edge_sm.csv");
     Graph_directed g("./data/vertex.csv" , "./data/edge.csv", "./bc_whole_data.csv");
 
@@ -67,8 +66,3 @@ int main(){
     // map.render().writeToFile("output.PNG");
     // return 0;
 }
-=======
-    // do whatever you want
-    return -1;
-}
->>>>>>> refs/remotes/origin/main
