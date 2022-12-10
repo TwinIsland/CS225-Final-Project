@@ -64,6 +64,56 @@ Graph_directed::Graph_directed(const std::string & vertex_file, const std::strin
 }
 
 
+Graph_directed::Graph_directed(const std::string & vertex_file, const std::string & edge_file, const std::string & bc_file) {
+    vector<inputVertex> i_node;
+    vector<Edge> i_edge;
+    string n_string = file_to_string(vertex_file);
+    string e_string = file_to_string(edge_file);
+
+    vector<string> line_node;
+    SplitString(n_string, '\n', line_node);
+    vector<string> line_edge;
+    SplitString(e_string, '\n', line_edge);
+
+    for (string s : line_node) {
+        inputVertex iv;
+        SplitString(s, ',', iv);
+        if (iv[0].empty()) continue; // empty input
+        i_node.push_back(iv);
+    }
+    for (string s : line_edge) {
+        inputVertex ivfrom;
+        inputVertex ivto;
+        vector<string> temp;
+        SplitString(s, ',', temp);
+        if (temp.size() <= 2) {
+            // invalid line
+            continue;
+        }
+        ivfrom.push_back(temp[0]);
+        ivto.push_back(temp[1]);
+        double wei = std::stod(temp[2]);
+        Edge edge__;
+        edge__.from = ivfrom;
+        edge__.to = ivto;
+        edge__.weight = wei;
+        i_edge.push_back(edge__);
+    }
+    create_helper(i_node,i_edge);
+
+    std::ifstream myfile(bc_file);
+    if (myfile.is_open()) {
+        std::string line;
+        while (std::getline(myfile, line)) {
+            auto id = line.substr(0, 3);
+            auto bc = std::stod(line.substr(4));
+            set_bc(id, bc);
+        }
+    } else 
+        throw std::runtime_error("File cannot open: " + bc_file);
+    myfile.close();
+}
+
 ///////////////////////////////////////
 // function  private //
 
@@ -304,7 +354,6 @@ void Graph_directed::UpdateBC() {
         }
     }
 }
-
 
 void Graph_directed::dump_bc_to_csv(const string file) {
     std::ofstream myfile;

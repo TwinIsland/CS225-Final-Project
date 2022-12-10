@@ -1,4 +1,4 @@
-#include "HeatMap.h"
+#include "heatmap.h"
 #include <limits>
 #include <cassert>
 
@@ -23,44 +23,45 @@ HeatMap::HeatMap (const Image &picture, Graph_directed graph) {
     }
 
     // find the max and min weight of this graph
-    findMinMaxCentrality(graph);
     weightColorConvert(graph);
     convertToPixelLocation(graph);
 }
 
-void HeatMap::findMinMaxCentrality(Graph_directed graph) {
-    max_centrality_ = std::numeric_limits<double>::lowest();
-    min_centrality_ = std::numeric_limits<double>::max();
-
-    for (auto& string_tag : all_string_tags_) {
-        double curr_centrality = graph.get_bc(string_tag);
-        if (max_centrality_ < curr_centrality) {
-            max_centrality_ = curr_centrality;
-        }
-
-        if (min_centrality_ > curr_centrality) {
-            min_centrality_ = curr_centrality;
-        }
-    }
-}
-
 void HeatMap::weightColorConvert(Graph_directed graph) {
     const double kRedHSLA = 0; // hsl = 0, 100, 50
+    const double kYellowHSLA = 60; // hsl = 60, 100, 50
     const double kGreenHSLA = 120; // hsl = 120, 100, 50
 
-    double numerator = kRedHSLA - kGreenHSLA;
-    double denominator = max_centrality_ - min_centrality_;
+    std::set<double> set;
+    std::vector<double> centrality_vect;
+    for (auto& string_tag : all_string_tags_) {
+        double curr_centrality = graph.get_bc(string_tag);
+        set.insert(curr_centrality);
+    }
+    centrality_vect.assign(set.begin(), set.end());
+    std::sort(centrality_vect.begin(), centrality_vect.end());
+
+    int greenPivotIdx = centrality_vect.size() / 3;
+    double greenPivotCent = centrality_vect.at(greenPivotIdx);
+
+    int yellowPivotIdx = (centrality_vect.size() / 3) * 2;
+    double yellowPivotCent = centrality_vect.at(yellowPivotIdx);
 
     for (auto& string_tag : all_string_tags_) {
         double curr_centrality = graph.get_bc(string_tag);
+        
         HSLAPixel hsla;
-        // double slope = (numerator / denominator) * x + kGreenHSLA;
-        hsla.h = (numerator / denominator) * curr_centrality + kGreenHSLA;
+        if (curr_centrality <= greenPivotCent) { // green
+            hsla.h = kGreenHSLA;
+        } else if (curr_centrality > greenPivotCent && curr_centrality <= yellowPivotCent) { // yellow
+            hsla.h = kYellowHSLA;
+        } else { // red
+            hsla.h = kRedHSLA;
+        }
         hsla.s = 1;
         hsla.l = 0.5;
         hsla_colors_.push_back(hsla);
     }
-    std::cout << hsla_colors_.at(0);
 }
 
 void HeatMap::convertToPixelLocation(Graph_directed graph) {
@@ -68,13 +69,14 @@ void HeatMap::convertToPixelLocation(Graph_directed graph) {
         std::string curr_tag = all_string_tags_.at(idx);
         std::vector<std::string> csv_row_vect = graph.get_vertex_other_data(curr_tag);
 
+        double radius  = pic_width_ / (2 * M_PI);
         double raw_longitude = std::stod(csv_row_vect.at(2)); // x coord
-        int pixel_longitude = (raw_longitude * pic_width_) / 360;
-        pixel_longitude += (pic_width_ / 2);
+        double raw_radians = raw_longitude / 180 * M_PI;
+        int pixel_longitude = raw_radians * radius + (pic_width_ / 2) + 0.5;
 
         double raw_latitude = std::stod(csv_row_vect.at(1)); // y coord
-        int pixel_latitude = (raw_latitude * pic_height_) / 180;
-        pixel_latitude += (pic_height_ / 2);
+        double tile_height = pic_height_ / 180;
+        int pixel_latitude = std::abs((raw_latitude * tile_height) - (pic_height_ / 2)) + 0.5;
         
         std::pair<double, double> pair(pixel_longitude, pixel_latitude);
         locations_.push_back(pair);

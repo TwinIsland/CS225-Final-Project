@@ -3,6 +3,8 @@
 #include "image.h"
 #include "graph.h"
 #include "utils.h"
+#include <cmath>
+#include <algorithm>
 
 
 // (Graph graph)
@@ -19,13 +21,6 @@ class HeatMap {
          * @param graph takes in a constructed graph
          */
         HeatMap(const Image &picture, Graph_directed graph);
-
-        /**
-         * @brief find the max and min centraility of the graph as bounds for future color mapping
-         * 
-         * @param graph takes in constructed graph
-         */
-        void findMinMaxCentrality(Graph_directed graph);
 
         void weightColorConvert(Graph_directed graph);
 
@@ -50,8 +45,6 @@ class HeatMap {
         Image* base_;
         int pic_width_;
         int pic_height_;
-        double min_centrality_;
-        double max_centrality_;
         std::vector<std::string> all_string_tags_;
         std::vector<HSLAPixel> hsla_colors_;
         std::vector<std::pair<double, double>> locations_;
