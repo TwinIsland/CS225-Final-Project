@@ -41,6 +41,65 @@ void print_neighbors(std::vector<std::pair<std::string, double>> neighbors) {
 //     REQUIRE(neighbors.size() == 0);
 // }
 
-TEST_CASE("stupid test") {
-    REQUIRE(true == true);
+TEST_CASE("constructor") {
+    std::vector<string> all_n = graph.getAll_vertex();
+
+    REQUIRE(all_n.size() == 4);
+}
+
+TEST_CASE("bfs") {
+    std::vector<string> a = graph.bfs_one_component("A");
+
+    REQUIRE(a.size() == 4);
+
+    std::vector<string> b = graph.bfs_one_component("B");
+
+    REQUIRE(b.size() == 3);
+
+    std::vector<string> c = graph.bfs_one_component("A");
+
+    REQUIRE(c.size() == 2);
+
+    std::vector<string> d = graph.bfs_one_component("A");
+
+    REQUIRE(d.size() == 2);
+}
+
+
+
+TEST_CASE("shortest path table test") {
+    std::vector<string> path1;
+    // make the path
+    path1.push_back("a");
+    path1.push_back("b");
+    path1.push_back("c");
+    
+    auto out = graph.gen_shortest_path_table();
+
+    REQUIRE(out["a"]["b"].first == path1);
+    REQUIRE(out["a"]["b"].second == 0.3);
+}
+
+TEST_CASE("shortest path table test2") {
+    std::vector<string> path1;
+    // make the path
+    path1.push_back("d");
+    path1.push_back("c");
+    
+    auto out = graph.gen_shortest_path_table();
+
+    REQUIRE(out["d"]["c"].first == path1);
+    REQUIRE(out["a"]["b"].second == 0.5);
+}
+
+TEST_CASE("shortest path table test3") {
+    std::vector<string> path1;
+    // make the path
+    path1.push_back("a");
+    path1.push_back("b");
+    
+    auto out = graph.gen_shortest_path_table();
+
+    REQUIRE(out["a"]["b"].first == path1);
+    REQUIRE(out["a"]["b"].second == 0.1);
 }
