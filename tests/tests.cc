@@ -57,57 +57,17 @@ void print_neighbors(std::vector<std::pair<std::string, double>> neighbors) {
 
 //     REQUIRE(b.size() == 3);
 
-<<<<<<< HEAD
-//     std::vector<string> c = graph.bfs_one_component("A");
-=======
     std::vector<string> c = graph.bfs_one_component("C");
->>>>>>> refs/remotes/origin/main
 
 //     REQUIRE(c.size() == 2);
 
-<<<<<<< HEAD
-//     std::vector<string> d = graph.bfs_one_component("A");
-=======
     std::vector<string> d = graph.bfs_one_component("D");
->>>>>>> refs/remotes/origin/main
 
 //     REQUIRE(d.size() == 2);
 // }
 
 
 
-<<<<<<< HEAD
-// TEST_CASE("shortest path table test") {
-//     std::vector<string> path1;
-//     // make the path
-//     path1.push_back("a");
-//     path1.push_back("b");
-//     path1.push_back("c");
-    
-//     auto out = graph.gen_shortest_path_table();
-
-//     REQUIRE(out["a"]["b"].first == path1);
-//     REQUIRE(out["a"]["b"].second == 0.3);
-// }
-
-// TEST_CASE("shortest path table test2") {
-//     std::vector<string> path1;
-//     // make the path
-//     path1.push_back("d");
-//     path1.push_back("c");
-    
-//     auto out = graph.gen_shortest_path_table();
-
-//     REQUIRE(out["d"]["c"].first == path1);
-//     REQUIRE(out["a"]["b"].second == 0.5);
-// }
-
-// TEST_CASE("shortest path table test3") {
-//     std::vector<string> path1;
-//     // make the path
-//     path1.push_back("a");
-//     path1.push_back("b");
-=======
 TEST_CASE("shortest path table test") {
     std::vector<string> path1;
     // make the path
@@ -127,16 +87,43 @@ TEST_CASE("shortest path table test3") {
     std::vector<string> path1;
     // make the path
     path1.push_back("B");
->>>>>>> refs/remotes/origin/main
     
 //     auto out = graph.gen_shortest_path_table();
 
-<<<<<<< HEAD
-//     REQUIRE(out["a"]["b"].first == path1);
-//     REQUIRE(out["a"]["b"].second == 0.1);
-// }
-=======
     REQUIRE(out["A"]["B"].first == path1);
     REQUIRE(out["A"]["B"].second == 0.1);
 }
->>>>>>> refs/remotes/origin/main
+
+TEST_CASE("weightColorConvert") {
+    const double kRedHSLA = 0; // hsl = 0, 100, 50
+    const double kYellowHSLA = 60; // hsl = 60, 100, 50
+    const double kGreenHSLA = 120; // hsl = 120, 100, 50
+
+    std::vector<double> centrality_vect {4.0, 2.0, 1.0};
+    std::sort(centrality_vect.begin(), centrality_vect.end());
+
+    int greenPivotIdx = centrality_vect.size() / 3;
+    double greenPivotCent = centrality_vect.at(greenPivotIdx);
+
+    int yellowPivotIdx = (centrality_vect.size() / 3) * 2;
+    double yellowPivotCent = centrality_vect.at(yellowPivotIdx);
+
+    std::vector<HSLAPixel> hsla_colors;
+    for (size_t idx = 0; idx < 3; idx++) {
+        double curr_centrality = centrality_vect.at(idx);
+        HSLAPixel hsla;
+        if (curr_centrality <= greenPivotCent) { // green
+            hsla.h = kGreenHSLA;
+        } else if (curr_centrality > greenPivotCent && curr_centrality <= yellowPivotCent) { // yellow
+            hsla.h = kYellowHSLA;
+        } else { // red
+            hsla.h = kRedHSLA;
+        }
+        hsla.s = 1;
+        hsla.l = 0.5;
+        hsla_colors.push_back(hsla);
+    }
+    REQUIRE(hsla_colors.at(0).h == 120);
+    REQUIRE(hsla_colors.at(1).h == 120);
+    REQUIRE(hsla_colors.at(2).h == 0);
+}
