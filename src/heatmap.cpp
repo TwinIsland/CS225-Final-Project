@@ -22,7 +22,7 @@ HeatMap::HeatMap (const Image &picture, Graph_directed graph) {
         all_string_tags_.push_back(string_tag);
     }
 
-    // find the max and min weight of this graph
+    // steps to generate dotted graph
     weightColorConvert(graph);
     convertToPixelLocation(graph);
 }
@@ -72,11 +72,11 @@ void HeatMap::convertToPixelLocation(Graph_directed graph) {
         double radius  = pic_width_ / (2 * M_PI);
         double raw_longitude = std::stod(csv_row_vect.at(2)); // x coord
         double raw_radians = raw_longitude / 180 * M_PI;
-        int pixel_longitude = raw_radians * radius + (pic_width_ / 2) + 0.5;
+        int pixel_longitude = raw_radians * radius + (pic_width_ / 2);
 
         double raw_latitude = std::stod(csv_row_vect.at(1)); // y coord
         double tile_height = pic_height_ / 180;
-        int pixel_latitude = std::abs((raw_latitude * tile_height) - (pic_height_ / 2)) + 0.5;
+        int pixel_latitude = std::abs((raw_latitude * tile_height) - (pic_height_ / 2));
         
         std::pair<double, double> pair(pixel_longitude, pixel_latitude);
         locations_.push_back(pair);
