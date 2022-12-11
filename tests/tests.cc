@@ -41,6 +41,3 @@ void print_neighbors(std::vector<std::pair<std::string, double>> neighbors) {
 //     REQUIRE(neighbors.size() == 0);
 // }
 
-TEST_CASE("stupid test") {
-    REQUIRE(1);
-}
