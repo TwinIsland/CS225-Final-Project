@@ -13,7 +13,7 @@ using std::cout;
 using std::endl;
 
 // global object graph (save runtime)
-Graph_directed graph ("./data/vertex.csv" , "./data/edge.csv");
+Graph_directed graph ("./data/test_g_v_1.csv" , "./data/test_g_e_1.csv");
 
 void print_neighbors(std::vector<std::pair<std::string, double>> neighbors) {
     for (auto it = neighbors.begin(); it != neighbors.end(); it++) {
@@ -41,9 +41,15 @@ void print_neighbors(std::vector<std::pair<std::string, double>> neighbors) {
 //     REQUIRE(neighbors.size() == 0);
 // }
 
-<<<<<<< HEAD
-=======
-TEST_CASE("stupid test") {
-    REQUIRE(true == true);
+TEST_CASE("shortest path table test") {
+    std::vector<string> path1;
+    // make the path
+    path1.push_back("a");
+    path1.push_back("b");
+    path1.push_back("c");
+    
+    auto out = graph.gen_shortest_path_table();
+
+    REQUIRE(out["a"]["b"].first == path1);
+    REQUIRE(out["a"]["b"].second == 0.3);
 }
->>>>>>> dd462e834a0a025450f54307eac792dfd372a2b7
