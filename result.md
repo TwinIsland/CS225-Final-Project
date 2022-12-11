@@ -2,7 +2,7 @@
 
 **Visualization:**
 
-![output](output.PNG)
+![](doc/sample.png)
 
 **Floyd Warshall:**
 
