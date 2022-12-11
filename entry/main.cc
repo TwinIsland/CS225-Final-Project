@@ -41,18 +41,22 @@ int main(){
 
     shortestPathTable sp_table = g.gen_shortest_path_table();
     
-    std::vector<string> shortest_path = g.get_shortest_path(sp_table, airport1, airport2);
-    double shortest_path_weight = g.get_shortest_weight(sp_table, airport1, airport2);
 
-    cout << "Shortest path from: " << airport1 << " to " << airport2 << " is: ";
-    cout << airport1 << " -> ";
-    for (auto i : shortest_path) {
-        if (i == shortest_path.back())
-            cout << i;
-        else
-            cout << i << " -> ";
+    for (auto airport1 : g.getAll_vertex()) {
+        for (auto airport2 : g.getAll_vertex()) {
+            std::vector<string> shortest_path = g.get_shortest_path(sp_table, airport1, airport2);
+            double shortest_path_weight = g.get_shortest_weight(sp_table, airport1, airport2);
+            cout << "Shortest path from: " << airport1 << " to " << airport2 << " is: ";
+            cout << airport1 << " -> ";
+            for (auto i : shortest_path) {
+                if (i == shortest_path.back())
+                    cout << i;
+                else
+                    cout << i << " -> ";
+            }
+            cout << " with weight: " << shortest_path_weight << endl;
+        }
     }
-    cout << " with weight: " << shortest_path_weight << endl;
     // g.UpdateBC();
     // for (auto i : g.getAll_vertex()) {
     //     cout << i << " has bc weight: " <<g.get_bc(i) << endl;
