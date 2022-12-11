@@ -53,3 +53,27 @@ TEST_CASE("shortest path table test") {
     REQUIRE(out["a"]["b"].first == path1);
     REQUIRE(out["a"]["b"].second == 0.3);
 }
+
+TEST_CASE("shortest path table test2") {
+    std::vector<string> path1;
+    // make the path
+    path1.push_back("d");
+    path1.push_back("c");
+    
+    auto out = graph.gen_shortest_path_table();
+
+    REQUIRE(out["d"]["c"].first == path1);
+    REQUIRE(out["a"]["b"].second == 0.5);
+}
+
+TEST_CASE("shortest path table test3") {
+    std::vector<string> path1;
+    // make the path
+    path1.push_back("a");
+    path1.push_back("b");
+    
+    auto out = graph.gen_shortest_path_table();
+
+    REQUIRE(out["a"]["b"].first == path1);
+    REQUIRE(out["a"]["b"].second == 0.1);
+}
