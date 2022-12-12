@@ -42,29 +42,29 @@ void print_neighbors(std::vector<std::pair<std::string, double>> neighbors) {
 //     REQUIRE(neighbors.size() == 0);
 // }
 
-// TEST_CASE("constructor") {
-//     std::vector<string> all_n = graph.getAll_vertex();
+TEST_CASE("constructor") {
+    std::vector<string> all_n = graph.getAll_vertex();
 
-//     REQUIRE(all_n.size() == 4);
-// }
+    REQUIRE(all_n.size() == 4);
+}
 
-// TEST_CASE("bfs") {
-//     std::vector<string> a = graph.bfs_one_component("A");
+TEST_CASE("bfs") {
+    std::vector<string> a = graph.bfs_one_component("A");
 
-//     REQUIRE(a.size() == 4);
+    REQUIRE(a.size() == 4);
 
-//     std::vector<string> b = graph.bfs_one_component("B");
+    std::vector<string> b = graph.bfs_one_component("B");
 
-//     REQUIRE(b.size() == 3);
+    REQUIRE(b.size() == 3);
 
     std::vector<string> c = graph.bfs_one_component("C");
 
-//     REQUIRE(c.size() == 2);
+    REQUIRE(c.size() == 2);
 
     std::vector<string> d = graph.bfs_one_component("D");
 
-//     REQUIRE(d.size() == 2);
-// }
+    REQUIRE(d.size() == 2);
+}
 
 
 
