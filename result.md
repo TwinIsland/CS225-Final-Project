@@ -21,7 +21,7 @@ Shortest path from: SUG to PNH is: SUG -> MNL -> SIN -> PNH with weight: 0.94376
 
 **Betweenness Centrality:**
 
-the whole dataset contains 6073 rows, the complete version can be find in [bc_whole_data.csv]([./bc_whole_data.csv). below shows the top 20 biggest betweenness centrality of the data
+the whole dataset contains 6073 rows, the complete version can be find in [bc_whole_data.csv]([/bc_whole_data.csv). below shows the top 20 biggest betweenness centrality of the data
 
 | Airport IATA | Betweenness Centrality |
 | ------------ | ---------------------- |
